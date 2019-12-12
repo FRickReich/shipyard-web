@@ -8,12 +8,13 @@ class LoadingScreen extends Component {
 	}
 
 	render() {
-		return (
-			<div className="loading-screen">
-				<div className="spinner" />
-			</div>
-		);
+		return <div className={`Notification ${this.props.type}`}>{this.props.content}</div>;
 	}
 }
+
+LoadingScreen.defaultProps = {
+	type: 'error',
+	content: 'Description'
+};
 
 export default LoadingScreen;

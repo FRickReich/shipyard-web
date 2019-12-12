@@ -27,16 +27,6 @@ class Header extends Component {
 							</NavLink>
 						</li>
 						<li>
-							<NavLink exact to="/apitest">
-								<p>Api Test</p>
-							</NavLink>
-						</li>
-						<li>
-							<NavLink exact to="/colors">
-								<p>Colors</p>
-							</NavLink>
-						</li>
-						<li>
 							<NavLink exact to="/asdf">
 								<p>Error</p>
 							</NavLink>

@@ -14,7 +14,9 @@ class Footer extends Component {
 		return (
 			<footer>
 				<hr />
-				<p id="copyright">This is the copyright line...</p>
+				<p id="copyright">
+					shipyard © 2019 by <a href="mailto:frickreich@gmail.com">F. Rick Reich</a>
+				</p>
 			</footer>
 		);
 	}
