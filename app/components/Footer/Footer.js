@@ -15,7 +15,7 @@ class Footer extends Component {
 			<footer>
 				<hr />
 				<p id="copyright">
-					shipyard © 2019 - {new Date().getFullYear()} by
+					botany-bay © 2019 - {new Date().getFullYear()} by
 					<a href="mailto:frickreich@gmail.com">F. Rick Reich</a>
 				</p>
 			</footer>
