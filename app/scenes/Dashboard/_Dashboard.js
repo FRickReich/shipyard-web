@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 import 'whatwg-fetch';
 import { NavLink, Redirect, withRouter } from 'react-router-dom';
 
-import LoadingScreen from './../../components/LoadingScreen/LoadingScreen';
+import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 
-import { setInStorage, getFromStorage } from './../../utils/storage';
+import { setInStorage, getFromStorage } from '../../utils/storage';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -15,16 +15,18 @@ class Dashboard extends Component {
 		this.state = {
 			isLoading: true,
 			token: '',
+			signUpError: '',
 			signInError: '',
 			email: '',
 			password: '',
 			userData: []
 		};
 
-		this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
-		this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
+		this.onTextboxChangeSignUpEmail = this.onTextboxChangeSignUpEmail.bind(this);
+		this.onTextboxChangeSignUpPassword = this.onTextboxChangeSignUpPassword.bind(this);
 
 		this.onSignIn = this.onSignIn.bind(this);
+		this.onSignUp = this.onSignUp.bind(this);
 
 		this.logout = this.logout.bind(this);
 	}
@@ -60,13 +62,13 @@ class Dashboard extends Component {
 		}
 	}
 
-	onTextboxChangeSignInEmail(event) {
+	onTextboxChangeSignUpEmail(event) {
 		this.setState({
 			email: event.target.value
 		});
 	}
 
-	onTextboxChangeSignInPassword(event) {
+	onTextboxChangeSignUpPassword(event) {
 		this.setState({
 			password: event.target.value
 		});
@@ -174,94 +176,101 @@ class Dashboard extends Component {
 			});
 	}
 
+	onSignUp() {
+		// Grab state
+		const { email, password } = this.state;
+
+		this.setState({
+			isLoading: true
+		});
+
+		// Post request to backend
+		fetch('/api/account/signup', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				email: email,
+				password: password
+			})
+		})
+			.then((res) => res.json())
+			.then((json) => {
+				console.log('json', json);
+
+				if (json.success) {
+					this.setState({
+						signUpError: json.message,
+						isLoading: false,
+						email: '',
+						password: ''
+					});
+				}
+				else {
+					this.setState({
+						signUpError: json.message,
+						isLoading: false
+					});
+				}
+			});
+	}
+
 	render() {
-		const { isLoading, token, signInError, email, password, userData } = this.state;
+		const { isLoading, token, signInError, email, password, signUpError, userData } = this.state;
 
-		if (token) {
-			return <p>logged in</p>;
-		}
-		else {
-			return (
-				<div className="login">
-					<div className="form">
+		return (
+			<div>
+				{signInError ? <p>{signInError}</p> : null}
+				{signUpError ? <p>{signUpError}</p> : null}
+
+				<section>
+					{token ? (
 						<div>
-							<input
-								type="email"
-								placeholder="Email"
-								value={email}
-								onChange={this.onTextboxChangeSignInEmail}
-							/>
-							<input
-								type="password"
-								placeholder="Password"
-								value={password}
-								onChange={this.onTextboxChangeSignInPassword}
-							/>
-							<br />
-							<button onClick={this.onSignIn}>Sign In</button>
-							<p>
-								Dont have an account yet?&nbsp;
-								<NavLink exact to="/register">
-									Create one now
-								</NavLink>
-							</p>
+							{isLoading ? (
+								<LoadingScreen />
+							) : (
+								<div>
+									<p>Account</p>
+									<p>email: {userData.email}</p>
+									<p>created: {userData.signUpDate}</p>
+
+									<button onClick={this.logout}>Logout</button>
+								</div>
+							)}
 						</div>
-					</div>
-				</div>
-			);
-		}
-
-		// return (
-		// 	<div>
-		// 		{signInError ? <p>{signInError}</p> : null}
-
-		// 		<section>
-		// 			{token ? (
-		// 				<div>
-		// 					{isLoading ? (
-		// 						<LoadingScreen />
-		// 					) : (
-		// 						<div>
-		// 							<p>Account</p>
-		// 							<p>email: {userData.email}</p>
-		// 							<p>created: {userData.signUpDate}</p>
-		// 							<p>verified: {userData.isVerified}</p>
-
-		// 							<button onClick={this.logout}>Logout</button>
-		// 						</div>
-		// 					)}
-		// 				</div>
-		// 			) : (
-		// 				<div className="login">
-		// 					<div className="form">
-		// 						<div>
-		// 							<input
-		// 								type="email"
-		// 								placeholder="Email"
-		// 								value={email}
-		// 								onChange={this.onTextboxChangeSignInEmail}
-		// 							/>
-		// 							<input
-		// 								type="password"
-		// 								placeholder="Password"
-		// 								value={password}
-		// 								onChange={this.onTextboxChangeSignInPassword}
-		// 							/>
-		// 							<br />
-		// 							<button onClick={this.onSignIn}>Sign In</button>
-		// 							<p>
-		// 								Dont have an account yet?&nbsp;
-		// 								<NavLink exact to="/register">
-		// 									Create one now
-		// 								</NavLink>
-		// 							</p>
-		// 						</div>
-		// 					</div>
-		// 				</div>
-		// 			)}
-		// 		</section>
-		// 	</div>
-		// );
+					) : (
+						<div className="login">
+							<div className="form">
+								<div>
+									<input
+										type="email"
+										placeholder="Email"
+										value={email}
+										onChange={this.onTextboxChangeSignUpEmail}
+									/>
+									<input
+										type="password"
+										placeholder="Password"
+										value={password}
+										onChange={this.onTextboxChangeSignUpPassword}
+									/>
+									<br />
+									<button onClick={this.onSignIn}>Sign In</button>
+									{/* <button onClick={this.onSignUp}>Sign Up</button> */}
+									<p>
+										Dont have an account yet?&nbsp;
+										<NavLink exact to="/register">
+											Create one now
+										</NavLink>
+									</p>
+								</div>
+							</div>
+						</div>
+					)}
+				</section>
+			</div>
+		);
 	}
 }
 

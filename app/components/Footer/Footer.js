@@ -12,12 +12,31 @@ class Footer extends Component {
 
 	render() {
 		return (
-			<footer>
-				<hr />
-				<p id="copyright">
-					botany-bay © 2019 - {new Date().getFullYear()} by
-					<a href="mailto:frickreich@gmail.com">F. Rick Reich</a>
-				</p>
+			<footer className="Footer">
+				<div className="footer-right">
+					{/*
+                    <a href="#">
+						<i class="fa fa-facebook" />
+					</a>
+					<a href="#">
+						<i class="fa fa-twitter" />
+					</a>
+					<a href="#">
+						<i class="fa fa-github" />
+                    </a>
+                    */}
+				</div>
+				<div className="footer-left">
+					<p className="footer-links">
+						<a href="#">Home</a>
+						·
+						<a href="#">Dashboard</a>
+						·
+						<a href="#">Error</a>
+					</p>
+
+					<p id="copyright">botany-bay.com © 2019 - {new Date().getFullYear()}</p>
+				</div>
 			</footer>
 		);
 	}

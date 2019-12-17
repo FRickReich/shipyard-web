@@ -19,6 +19,10 @@ const UserSchema = new mongoose.Schema({
 	signUpDate: {
 		type: Date,
 		default: Date.now()
+	},
+	isVerified: {
+		type: Boolean,
+		default: false
 	}
 });
 

@@ -7,6 +7,7 @@ import App from './App';
 import Home from './scenes/Home/Home';
 import Dashboard from './scenes/Dashboard/Dashboard';
 import NotFound from './scenes/NotFound/NotFound';
+import Register from './scenes/Register/Register';
 
 ReactDOM.render(
 	<Router>
@@ -14,6 +15,7 @@ ReactDOM.render(
 			<Switch>
 				<Route exact path="/" component={Home} />
 				<Route path="/dashboard" component={Dashboard} />
+				<Route path="/register" component={Register} />
 				<Route component={NotFound} />
 			</Switch>
 		</App>

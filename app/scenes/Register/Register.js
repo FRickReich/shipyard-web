@@ -3,10 +3,7 @@
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
-import Header from './../../components/Header/Header';
-import Footer from './../../components/Footer/Footer';
-
-class NotFound extends Component {
+class Register extends Component {
 	constructor(props) {
 		super(props);
 
@@ -16,17 +13,14 @@ class NotFound extends Component {
 	render() {
 		return (
 			<div className="page">
-				<Header />
 				<div className="page-body">
 					<main className="page-content">
-						<h2>404 - Page not found</h2>
-						<Link to="/">Go home!</Link>
+						<h2>Register new Account</h2>
 					</main>
 				</div>
-				<Footer />
 			</div>
 		);
 	}
 }
 
-export default NotFound;
+export default Register;

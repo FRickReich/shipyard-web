@@ -12,28 +12,22 @@ class Header extends Component {
 
 	render() {
 		return (
-			<header>
-				<h1>Header</h1>
-				<nav>
-					<ul>
-						<li>
-							<NavLink exact to="/">
-								<p>Home</p>
-							</NavLink>
-						</li>
-						<li>
-							<NavLink exact to="/dashboard">
-								<p>Dashboard</p>
-							</NavLink>
-						</li>
-						<li>
-							<NavLink exact to="/asdf">
-								<p>Error</p>
-							</NavLink>
-						</li>
-					</ul>
-				</nav>
-			</header>
+			<div className="header">
+				<a href="#default" className="logo">
+					[LOGO]
+				</a>
+				<div className="header-right">
+					<NavLink exact to="/">
+						<p>Home</p>
+					</NavLink>
+					<NavLink exact to="/dashboard">
+						<p>Dashboard</p>
+					</NavLink>
+					<NavLink exact to="/asdf">
+						<p>Error</p>
+					</NavLink>
+				</div>
+			</div>
 		);
 	}
 }
