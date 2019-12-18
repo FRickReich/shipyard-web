@@ -1,6 +1,7 @@
 'use strict';
 
 const nodemailer = require('nodemailer');
+const SHA256 = require('crypto-js/sha256');
 
 const transport = {
 	host: 'smtp.office365.com',
@@ -18,7 +19,9 @@ module.exports = (app) => {
 			from: 'botany-bay.com',
 			to: req.params.userId,
 			subject: 'Welcome to botany-bay.com',
-			text: 'blergh...'
+			text: `click on <a href="botany-bay.com:8080/verify?user=${req.params.user}&token=${SHA256(
+				req.params.userId
+			).toString()}>verification link</a>.`
 		};
 
 		transporter.sendMail(mail, (err) => {

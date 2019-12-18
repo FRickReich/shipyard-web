@@ -2,6 +2,7 @@
 
 const User = require('../../models/User');
 const UserSession = require('../../models/UserSession');
+const SHA256 = require('crypto-js/sha256');
 
 module.exports = (app) => {
 	app.post('/api/account/signup', (req, res, next) => {
@@ -49,6 +50,7 @@ module.exports = (app) => {
 
 				newUser.email = email;
 				newUser.password = newUser.generateHash(password);
+				newUser.verificationToken = SHA256(email).toString();
 
 				newUser.save((err, user) => {
 					if (err) {

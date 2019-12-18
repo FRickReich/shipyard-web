@@ -17,7 +17,7 @@ class Register extends Component {
 		};
 	}
 
-	testMail(email) {
+	sendVerificationEmail(email) {
 		fetch(`/api/${email}/mail`).then((res) => res.json()).then((json) => {
 			if (json.success) {
 				console.log(json);
@@ -64,7 +64,7 @@ class Register extends Component {
 				console.log('json', json);
 
 				if (json.success) {
-					this.testMail(email);
+					this.sendVerificationEmail(email);
 
 					this.setState({
 						signUpError: json.message,
