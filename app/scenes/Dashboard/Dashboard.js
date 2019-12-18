@@ -4,7 +4,20 @@ import React, { Component } from 'react';
 import 'whatwg-fetch';
 import { NavLink, Redirect, withRouter } from 'react-router-dom';
 
-import LoadingScreen from './../../components/LoadingScreen/LoadingScreen';
+import {
+	Button,
+	Form,
+	Grid,
+	Modal,
+	Dropdown,
+	Icon,
+	Input,
+	Container,
+	Menu,
+	Header,
+	Message,
+	Segment
+} from 'semantic-ui-react';
 
 import { setInStorage, getFromStorage } from './../../utils/storage';
 
@@ -18,15 +31,14 @@ class Dashboard extends Component {
 			signInError: '',
 			email: '',
 			password: '',
-			userData: []
+			userData: [],
+			logoutModalOpen: false
 		};
 
 		this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
 		this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
 
 		this.onSignIn = this.onSignIn.bind(this);
-
-		this.logout = this.logout.bind(this);
 	}
 
 	componentDidMount() {
@@ -72,6 +84,13 @@ class Dashboard extends Component {
 		});
 	}
 
+	openLogoutModal() {
+		this.setState({ logoutModalOpen: true });
+	}
+	closeLogoutModal() {
+		this.setState({ logoutModalOpen: false });
+	}
+
 	getUserInfo() {
 		const obj = getFromStorage('gandhi');
 
@@ -114,6 +133,7 @@ class Dashboard extends Component {
 
 					this.setState({
 						token: '',
+						signInError: '',
 						isLoading: false
 					});
 				}
@@ -175,93 +195,96 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		const { isLoading, token, signInError, email, password, userData } = this.state;
+		const { isLoading, token, signInError, email, password, userData, logoutModalOpen } = this.state;
 
 		if (token) {
-			return <p>logged in</p>;
+			return (
+				<Container>
+					<Menu pointing secondary>
+						<Menu.Menu position="right">
+							<Dropdown item text={userData.email}>
+								<Dropdown.Menu>
+									<Dropdown.Item onClick={this.openLogoutModal.bind(this)}>Log-out</Dropdown.Item>
+								</Dropdown.Menu>
+							</Dropdown>
+						</Menu.Menu>
+					</Menu>
+
+					<Container fluid>
+						<Header as="h2" color="black">
+							Account
+						</Header>
+						<p>email: {userData.email}</p>
+						<p>created: {userData.signUpDate}</p>
+						<p>verified: {userData.isVerified || 'false'}</p>
+					</Container>
+
+					<Modal
+						open={logoutModalOpen}
+						onOpen={this.openLogoutModal}
+						onClose={this.closeLogoutModal}
+						basic
+						size="small"
+					>
+						<Header icon="archive" content="Log-out" />
+						<Modal.Content>
+							<p>Are you sure you want to log-out?</p>
+						</Modal.Content>
+						<Modal.Actions>
+							<Button basic color="red" onClick={this.closeLogoutModal.bind(this)} inverted>
+								<Icon name="remove" /> No
+							</Button>
+							<Button color="green" onClick={this.logout.bind(this)} inverted>
+								<Icon name="checkmark" /> Yes
+							</Button>
+						</Modal.Actions>
+					</Modal>
+				</Container>
+			);
 		}
 		else {
 			return (
-				<div className="login">
-					<div className="form">
-						<div>
-							<input
-								type="email"
-								placeholder="Email"
-								value={email}
-								onChange={this.onTextboxChangeSignInEmail}
-							/>
-							<input
-								type="password"
-								placeholder="Password"
-								value={password}
-								onChange={this.onTextboxChangeSignInPassword}
-							/>
-							<br />
-							<button onClick={this.onSignIn}>Sign In</button>
-							<p>
-								Dont have an account yet?&nbsp;
-								<NavLink exact to="/register">
-									Create one now
-								</NavLink>
-							</p>
-						</div>
-					</div>
-				</div>
+				<Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
+					<Grid.Column style={{ maxWidth: 450 }}>
+						<Header as="h2" color="black" textAlign="center">
+							Log-in
+						</Header>
+						<Form size="large">
+							<Segment raised>
+								<Form.Input
+									type="email"
+									fluid
+									icon="user"
+									iconPosition="left"
+									value={email}
+									onChange={this.onTextboxChangeSignInEmail}
+									placeholder="E-mail address"
+								/>
+								<Form.Input
+									fluid
+									icon="lock"
+									iconPosition="left"
+									placeholder="Password"
+									type="password"
+									value={password}
+									onChange={this.onTextboxChangeSignInPassword}
+								/>
+								<Button color="teal" fluid size="large" onClick={this.onSignIn}>
+									Login
+								</Button>
+							</Segment>
+						</Form>
+						{signInError ? <Message color="red">{signInError}</Message> : null}
+						<Message>
+							Dont have an account yet?&nbsp;
+							<NavLink exact to="/register">
+								Create one now
+							</NavLink>
+						</Message>
+					</Grid.Column>
+				</Grid>
 			);
 		}
-
-		// return (
-		// 	<div>
-		// 		{signInError ? <p>{signInError}</p> : null}
-
-		// 		<section>
-		// 			{token ? (
-		// 				<div>
-		// 					{isLoading ? (
-		// 						<LoadingScreen />
-		// 					) : (
-		// 						<div>
-		// 							<p>Account</p>
-		// 							<p>email: {userData.email}</p>
-		// 							<p>created: {userData.signUpDate}</p>
-		// 							<p>verified: {userData.isVerified}</p>
-
-		// 							<button onClick={this.logout}>Logout</button>
-		// 						</div>
-		// 					)}
-		// 				</div>
-		// 			) : (
-		// 				<div className="login">
-		// 					<div className="form">
-		// 						<div>
-		// 							<input
-		// 								type="email"
-		// 								placeholder="Email"
-		// 								value={email}
-		// 								onChange={this.onTextboxChangeSignInEmail}
-		// 							/>
-		// 							<input
-		// 								type="password"
-		// 								placeholder="Password"
-		// 								value={password}
-		// 								onChange={this.onTextboxChangeSignInPassword}
-		// 							/>
-		// 							<br />
-		// 							<button onClick={this.onSignIn}>Sign In</button>
-		// 							<p>
-		// 								Dont have an account yet?&nbsp;
-		// 								<NavLink exact to="/register">
-		// 									Create one now
-		// 								</NavLink>
-		// 							</p>
-		// 						</div>
-		// 					</div>
-		// 				</div>
-		// 			)}
-		// 		</section>
-		// 	</div>
-		// );
 	}
 }
 

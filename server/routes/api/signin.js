@@ -106,7 +106,7 @@ module.exports = (app) => {
 				if (users.length != 1) {
 					return res.send({
 						success: false,
-						message: 'Error: Invalid'
+						message: 'Error: Wrong credentials'
 					});
 				}
 

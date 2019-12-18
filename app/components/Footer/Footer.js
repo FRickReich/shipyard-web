@@ -3,6 +3,22 @@
 import { NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
 
+import {
+	Button,
+	Container,
+	Divider,
+	Grid,
+	Header,
+	Icon,
+	Image,
+	List,
+	Menu,
+	Responsive,
+	Segment,
+	Sidebar,
+	Visibility
+} from 'semantic-ui-react';
+
 class Footer extends Component {
 	constructor(props) {
 		super(props);
@@ -12,7 +28,19 @@ class Footer extends Component {
 
 	render() {
 		return (
-			<footer className="Footer">
+			<Segment className="footer" inverted vertical style={{ padding: '5em 0em' }}>
+				<Container textAlign="center">
+					<p id="copyright">botany-bay.com © 2019 - {new Date().getFullYear()}</p>
+				</Container>
+			</Segment>
+		);
+	}
+}
+
+export default Footer;
+
+/*
+<footer className="Footer">
 				<div className="footer-right">
 					{/*
                     <a href="#">
@@ -24,22 +52,17 @@ class Footer extends Component {
 					<a href="#">
 						<i class="fa fa-github" />
                     </a>
-                    */}
-				</div>
-				<div className="footer-left">
-					<p className="footer-links">
-						<a href="#">Home</a>
-						·
-						<a href="#">Dashboard</a>
-						·
-						<a href="#">Error</a>
-					</p>
-
-					<p id="copyright">botany-bay.com © 2019 - {new Date().getFullYear()}</p>
-				</div>
-			</footer>
-		);
-	}
-}
-
-export default Footer;
+                    </div>
+                    <div className="footer-left">
+                        <p className="footer-links">
+                            <a href="#">Home</a>
+                            ·
+                            <a href="#">Dashboard</a>
+                            ·
+                            <a href="#">Error</a>
+                        </p>
+    
+                        <p id="copyright">botany-bay.com © 2019 - {new Date().getFullYear()}</p>
+                    </div>
+                </footer>
+*/

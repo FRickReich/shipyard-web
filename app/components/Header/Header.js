@@ -3,7 +3,9 @@
 import { NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
 
-class Header extends Component {
+import { Container, Menu, Segment } from 'semantic-ui-react';
+
+class PageHeader extends Component {
 	constructor(props) {
 		super(props);
 
@@ -12,24 +14,25 @@ class Header extends Component {
 
 	render() {
 		return (
-			<div className="header">
-				<a href="#default" className="logo">
-					[LOGO]
-				</a>
-				<div className="header-right">
-					<NavLink exact to="/">
-						<p>Home</p>
-					</NavLink>
-					<NavLink exact to="/dashboard">
-						<p>Dashboard</p>
-					</NavLink>
-					<NavLink exact to="/asdf">
-						<p>Error</p>
-					</NavLink>
-				</div>
+			<div>
+				<Segment inverted vertical>
+					<Container>
+						<Menu inverted pointing secondary>
+							<Menu.Item as={NavLink} name="home" exact to="/">
+								Home
+							</Menu.Item>
+							<Menu.Item as={NavLink} name="error" to="/asdf">
+								Error
+							</Menu.Item>
+							<Menu.Item position="right" as={NavLink} name="dashboard" to="/dashboard">
+								Dashboard
+							</Menu.Item>
+						</Menu>
+					</Container>
+				</Segment>
 			</div>
 		);
 	}
 }
 
-export default Header;
+export default PageHeader;
