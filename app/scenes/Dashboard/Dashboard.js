@@ -11,7 +11,6 @@ import {
 	Modal,
 	Dropdown,
 	Icon,
-	Input,
 	Container,
 	Menu,
 	Header,
@@ -197,6 +196,8 @@ class Dashboard extends Component {
 	render() {
 		const { isLoading, token, signInError, email, password, userData, logoutModalOpen } = this.state;
 
+		let search = new URLSearchParams(this.props.location.search);
+
 		if (token) {
 			return (
 				<Container>
@@ -216,7 +217,7 @@ class Dashboard extends Component {
 						</Header>
 						<p>email: {userData.email}</p>
 						<p>created: {userData.signUpDate}</p>
-						<p>verified: {userData.isVerified || 'false'}</p>
+						<p>verified: {userData.isVerified ? 'true' : 'false'}</p>
 					</Container>
 
 					<Modal
@@ -275,12 +276,16 @@ class Dashboard extends Component {
 							</Segment>
 						</Form>
 						{signInError ? <Message color="red">{signInError}</Message> : null}
-						<Message>
-							Dont have an account yet?&nbsp;
-							<NavLink exact to="/register">
-								Create one now
-							</NavLink>
-						</Message>
+						{search.get('verified') ? (
+							<Message color="green">Account created, You can log in now!</Message>
+						) : (
+							<Message>
+								Dont have an account yet?&nbsp;
+								<NavLink exact to="/register">
+									Create one now
+								</NavLink>
+							</Message>
+						)}
 					</Grid.Column>
 				</Grid>
 			);

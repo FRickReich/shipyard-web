@@ -231,7 +231,8 @@ module.exports = (app) => {
 					success: true,
 					data: {
 						email: user.email,
-						signUpDate: user.signUpDate
+						signUpDate: user.signUpDate,
+						isVerified: user.isVerified
 					}
 				});
 			});
