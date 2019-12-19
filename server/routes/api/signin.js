@@ -61,8 +61,8 @@ module.exports = (app) => {
 					}
 
 					return res.send({
-						success: true,
-						message: 'Signed up'
+						success: true
+						//message: 'Signed up'
 					});
 				});
 			}

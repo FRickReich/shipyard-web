@@ -41,7 +41,7 @@ class Dashboard extends Component {
 	}
 
 	componentDidMount() {
-		const obj = getFromStorage('gandhi');
+		const obj = getFromStorage('botany-bay');
 
 		if (obj && obj.token) {
 			const { token } = obj;
@@ -91,7 +91,7 @@ class Dashboard extends Component {
 	}
 
 	getUserInfo() {
-		const obj = getFromStorage('gandhi');
+		const obj = getFromStorage('botany-bay');
 
 		if (obj && obj.token) {
 			const { token } = obj;
@@ -120,7 +120,7 @@ class Dashboard extends Component {
 			isLoading: true
 		});
 
-		const obj = getFromStorage('gandhi');
+		const obj = getFromStorage('botany-bay');
 
 		if (obj && obj.token) {
 			const { token } = obj;
@@ -172,7 +172,7 @@ class Dashboard extends Component {
 				console.log('json', json);
 
 				if (json.success) {
-					setInStorage('gandhi', { token: json.token });
+					setInStorage('botany-bay', { token: json.token });
 
 					this.getUserInfo();
 
