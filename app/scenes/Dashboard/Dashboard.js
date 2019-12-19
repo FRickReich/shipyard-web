@@ -217,7 +217,7 @@ class Dashboard extends Component {
 							<Message>
 								Dont have an account yet?&nbsp;
 								<NavLink exact to="/register">
-									Create one now
+									Create one now!
 								</NavLink>
 							</Message>
 						)}
