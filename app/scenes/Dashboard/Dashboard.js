@@ -207,6 +207,7 @@ class Dashboard extends Component {
 			return (
 				<Container>
 					<Menu pointing secondary>
+						<Menu.Item name="account" />
 						<Menu.Menu position="right">
 							<Dropdown item text={userData.email}>
 								<Dropdown.Menu>
@@ -218,9 +219,8 @@ class Dashboard extends Component {
 
 					<Container fluid>
 						<Header as="h2" color="black">
-							Account
+							Overview
 						</Header>
-
 						<Statistic.Group size="tiny">
 							<Statistic>
 								<Statistic.Value>{registrationDate}</Statistic.Value>
@@ -237,9 +237,6 @@ class Dashboard extends Component {
 								<Statistic.Label>Verified</Statistic.Label>
 							</Statistic>
 						</Statistic.Group>
-						{/* <p>email: {userData.email}</p>
-						<p>created: {userData.signUpDate}</p>
-						<p>verified: {userData.isVerified ? 'true' : 'false'}</p> */}
 					</Container>
 
 					<Modal
