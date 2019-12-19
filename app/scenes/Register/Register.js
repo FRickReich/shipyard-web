@@ -94,6 +94,7 @@ class Register extends Component {
 						<Segment raised>
 							<Form.Input
 								type="email"
+								disabled={registrationSuccess ? false : true}
 								fluid
 								icon="user"
 								iconPosition="left"
@@ -104,6 +105,7 @@ class Register extends Component {
 							<Form.Input
 								fluid
 								icon="lock"
+								disabled={registrationSuccess ? false : true}
 								iconPosition="left"
 								placeholder="Password"
 								type="password"
