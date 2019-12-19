@@ -1,11 +1,10 @@
 'use strict';
 
-import { NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import { Container, Segment } from 'semantic-ui-react';
 
-class Footer extends Component {
+class PageFooter extends Component {
 	constructor(props) {
 		super(props);
 
@@ -23,7 +22,7 @@ class Footer extends Component {
 	}
 }
 
-export default Footer;
+export default PageFooter;
 
 /*
 <footer className="Footer">

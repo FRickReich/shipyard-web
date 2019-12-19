@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 
-import PageHeader from './../../components/Header/Header';
-import Footer from './../../components/Footer/Footer';
+import PageHeader from '../../components/PageHeader/PageHeader';
+import PageFooter from '../../components/PageFooter/PageFooter';
 
 import { Header, Container, Divider } from 'semantic-ui-react';
 
@@ -45,7 +45,7 @@ class Home extends Component {
 						ultricies nisi.
 					</p>
 				</Container>
-				<Footer />
+				<PageFooter />
 			</div>
 		);
 	}

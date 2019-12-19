@@ -3,8 +3,8 @@
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
-import Header from './../../components/Header/Header';
-import Footer from './../../components/Footer/Footer';
+import PageHeader from '../../components/PageHeader/PageHeader';
+import PageFooter from '../../components/PageFooter/PageFooter';
 
 class NotFound extends Component {
 	constructor(props) {
@@ -16,14 +16,14 @@ class NotFound extends Component {
 	render() {
 		return (
 			<div className="page">
-				<Header />
+				<PageHeader />
 				<div className="page-body">
 					<main className="page-content">
 						<h2>404 - Page not found</h2>
 						<Link to="/">Go home!</Link>
 					</main>
 				</div>
-				<Footer />
+				<PageFooter />
 			</div>
 		);
 	}
