@@ -4,12 +4,15 @@ import React, { Component } from 'react';
 import 'whatwg-fetch';
 import { NavLink, Redirect, withRouter } from 'react-router-dom';
 
+import moment from 'moment';
+
 import {
 	Button,
 	Form,
 	Grid,
 	Modal,
 	Dropdown,
+	Statistic,
 	Icon,
 	Container,
 	Menu,
@@ -198,6 +201,8 @@ class Dashboard extends Component {
 
 		let search = new URLSearchParams(this.props.location.search);
 
+		let registrationDate = moment(userData.signUpDate).fromNow(true);
+
 		if (token) {
 			return (
 				<Container>
@@ -215,9 +220,26 @@ class Dashboard extends Component {
 						<Header as="h2" color="black">
 							Account
 						</Header>
-						<p>email: {userData.email}</p>
+
+						<Statistic.Group size="tiny">
+							<Statistic>
+								<Statistic.Value>{registrationDate}</Statistic.Value>
+								<Statistic.Label>Registered</Statistic.Label>
+							</Statistic>
+							<Statistic>
+								<Statistic.Value>
+									{userData.isVerified ? (
+										<Icon color="green" name="checkmark" />
+									) : (
+										<Icon color="red" name="cancel" />
+									)}
+								</Statistic.Value>
+								<Statistic.Label>Verified</Statistic.Label>
+							</Statistic>
+						</Statistic.Group>
+						{/* <p>email: {userData.email}</p>
 						<p>created: {userData.signUpDate}</p>
-						<p>verified: {userData.isVerified ? 'true' : 'false'}</p>
+						<p>verified: {userData.isVerified ? 'true' : 'false'}</p> */}
 					</Container>
 
 					<Modal
