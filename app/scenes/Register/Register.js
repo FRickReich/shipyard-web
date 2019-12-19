@@ -84,6 +84,8 @@ class Register extends Component {
 	render() {
 		const { email, password, registrationSuccess, signUpError } = this.state;
 
+		console.log(registrationSuccess);
+
 		return (
 			<Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
 				<Grid.Column style={{ maxWidth: 450 }}>
@@ -94,7 +96,7 @@ class Register extends Component {
 						<Segment raised>
 							<Form.Input
 								type="email"
-								disabled={registrationSuccess ? false : true}
+								disabled={registrationSuccess ? true : false}
 								fluid
 								icon="user"
 								iconPosition="left"
@@ -105,7 +107,7 @@ class Register extends Component {
 							<Form.Input
 								fluid
 								icon="lock"
-								disabled={registrationSuccess ? false : true}
+								disabled={registrationSuccess ? true : false}
 								iconPosition="left"
 								placeholder="Password"
 								type="password"
