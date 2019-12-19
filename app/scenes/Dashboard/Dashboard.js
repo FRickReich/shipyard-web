@@ -2,26 +2,15 @@
 
 import React, { Component } from 'react';
 import 'whatwg-fetch';
-import { NavLink, Redirect, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import moment from 'moment';
 
-import {
-	Button,
-	Form,
-	Grid,
-	Modal,
-	Dropdown,
-	Statistic,
-	Icon,
-	Container,
-	Menu,
-	Header,
-	Message,
-	Segment
-} from 'semantic-ui-react';
+import { Button, Form, Grid, Statistic, Icon, Container, Header, Message, Segment } from 'semantic-ui-react';
 
 import { setInStorage, getFromStorage } from './../../utils/storage';
+
+import DashboardHeader from '../../components/DashboardHeader/DashboardHeader';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -33,8 +22,7 @@ class Dashboard extends Component {
 			signInError: '',
 			email: '',
 			password: '',
-			userData: [],
-			logoutModalOpen: false
+			userData: []
 		};
 
 		this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
@@ -86,13 +74,6 @@ class Dashboard extends Component {
 		});
 	}
 
-	openLogoutModal() {
-		this.setState({ logoutModalOpen: true });
-	}
-	closeLogoutModal() {
-		this.setState({ logoutModalOpen: false });
-	}
-
 	getUserInfo() {
 		const obj = getFromStorage('botany-bay');
 
@@ -107,41 +88,6 @@ class Dashboard extends Component {
 					this.setState({
 						isLoading: false,
 						userData: json.data
-					});
-				}
-			});
-		}
-		else {
-			this.setState({
-				isLoading: false
-			});
-		}
-	}
-
-	logout() {
-		this.setState({
-			isLoading: true
-		});
-
-		const obj = getFromStorage('botany-bay');
-
-		if (obj && obj.token) {
-			const { token } = obj;
-
-			// Verify token
-			fetch('/api/account/logout?token=' + token).then((res) => res.json()).then((json) => {
-				if (json.success) {
-					localStorage.removeItem('gandhi');
-
-					this.setState({
-						token: '',
-						signInError: '',
-						isLoading: false
-					});
-				}
-				else {
-					this.setState({
-						isLoading: false
 					});
 				}
 			});
@@ -206,16 +152,7 @@ class Dashboard extends Component {
 		if (token) {
 			return (
 				<Container>
-					<Menu pointing secondary>
-						<Menu.Item name="account" />
-						<Menu.Menu position="right">
-							<Dropdown item text={userData.email}>
-								<Dropdown.Menu>
-									<Dropdown.Item onClick={this.openLogoutModal.bind(this)}>Log-out</Dropdown.Item>
-								</Dropdown.Menu>
-							</Dropdown>
-						</Menu.Menu>
-					</Menu>
+					<DashboardHeader userData={userData} />
 
 					<Container fluid>
 						<Header as="h2" color="black">
@@ -238,27 +175,6 @@ class Dashboard extends Component {
 							</Statistic>
 						</Statistic.Group>
 					</Container>
-
-					<Modal
-						open={logoutModalOpen}
-						onOpen={this.openLogoutModal}
-						onClose={this.closeLogoutModal}
-						basic
-						size="small"
-					>
-						<Header icon="archive" content="Log-out" />
-						<Modal.Content>
-							<p>Are you sure you want to log-out?</p>
-						</Modal.Content>
-						<Modal.Actions>
-							<Button basic color="red" onClick={this.closeLogoutModal.bind(this)} inverted>
-								<Icon name="remove" /> No
-							</Button>
-							<Button color="green" onClick={this.logout.bind(this)} inverted>
-								<Icon name="checkmark" /> Yes
-							</Button>
-						</Modal.Actions>
-					</Modal>
 				</Container>
 			);
 		}
