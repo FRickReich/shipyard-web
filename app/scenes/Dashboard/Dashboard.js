@@ -277,7 +277,7 @@ class Dashboard extends Component {
 						</Form>
 						{signInError ? <Message color="red">{signInError}</Message> : null}
 						{search.get('verified') ? (
-							<Message color="green">Account created, You can log in now!</Message>
+							<Message color="green">Account verified, You can log in now!</Message>
 						) : (
 							<Message>
 								Dont have an account yet?&nbsp;
