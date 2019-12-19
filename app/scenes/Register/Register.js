@@ -11,7 +11,7 @@ class Register extends Component {
 
 		this.state = {
 			signUpError: '',
-			registrationSuccess: true,
+			registrationSuccess: false,
 			email: '',
 			password: ''
 		};
