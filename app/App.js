@@ -2,8 +2,6 @@
 
 import React, { Component } from 'react';
 
-import { Button, Form, Grid, Statistic, Icon, Container, Header, Message, Segment } from 'semantic-ui-react';
-
 import CookieConsentMessage from './components/CookieConsentMessage/CookieConsentMessage';
 
 class App extends Component {
