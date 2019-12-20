@@ -5,3 +5,11 @@
 	margin-top: 0;
 	margin-bottom: 0;
 }
+
+.CookieConsentMessage {
+	position: absolute !important;
+	bottom: 0;
+	line-height: 36px !important;
+	width: 100%;
+	border-radius: 0 !important;
+}

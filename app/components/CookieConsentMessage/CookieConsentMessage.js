@@ -1,0 +1,45 @@
+'use strict';
+
+import React, { Component } from 'react';
+
+import { Button, Message } from 'semantic-ui-react';
+
+import { setInStorage, getFromStorage } from './../../utils/storage';
+
+class CookieConsentMessage extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			visible: true
+		};
+	}
+
+	componentDidMount() {}
+
+	handleDismiss() {
+		this.setState({ visible: false });
+
+		setInStorage('botany-bay-cookie', { accepted: true });
+	}
+
+	render() {
+		const { visible } = this.state;
+
+		return (
+			<Message hidden={visible ? false : true} className="CookieConsentMessage">
+				We use cookies to ensure you the best experience. By using our website you agree to our Cookie Policy.
+				<Button floated="right" basic onClick={this.handleDismiss.bind(this)} color="black">
+					Ok. understood
+				</Button>
+			</Message>
+		);
+	}
+}
+
+export default CookieConsentMessage;
+
+/*
+We use cookies to ensure you the best experience. By using our website you agree to our Cookie
+					Policy.<Button floated="right">Ok. understood</Button>
+*/
