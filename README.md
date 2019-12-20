@@ -9,5 +9,5 @@ Concept:
 Technology:
 - Hosted on DigitalOcean.
 - MERN stack.
-- TravisCI builds
+- TravisCI for building.
 - Brunch instead of webpack.
