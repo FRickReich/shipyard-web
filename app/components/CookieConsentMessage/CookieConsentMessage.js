@@ -10,6 +10,7 @@ class CookieConsentMessage extends Component {
 	constructor(props) {
 		super(props);
 
+		console.log('hi');
 		this.state = {
 			visible: true
 		};
