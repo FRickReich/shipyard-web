@@ -26,8 +26,6 @@ class DashboardHeader extends Component {
 			isLoading: true
 		});
 
-		console.log('test');
-
 		const obj = getFromStorage('botany-bay');
 
 		if (obj && obj.token) {
@@ -36,7 +34,7 @@ class DashboardHeader extends Component {
 			// Verify token
 			fetch('/api/account/logout?token=' + token).then((res) => res.json()).then((json) => {
 				if (json.success) {
-					localStorage.removeItem('gandhi');
+					localStorage.removeItem('botany-bay');
 
 					this.setState({
 						token: '',
