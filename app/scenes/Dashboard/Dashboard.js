@@ -10,7 +10,8 @@ import { Statistic, Icon, Container, Header } from 'semantic-ui-react';
 
 import { getFromStorage } from './../../utils/storage';
 
-import DashboardHeader from '../../components/DashboardHeader/DashboardHeader';
+import DashboardHeader from './../../components/DashboardHeader/DashboardHeader';
+import LoadingScreen from './../../components/LoadingScreen/LoadingScreen';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -86,7 +87,7 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		const { token, userData } = this.state;
+		const { token, userData, isLoading } = this.state;
 
 		let registrationDate = moment(userData.signUpDate).fromNow(true);
 
@@ -119,8 +120,8 @@ class Dashboard extends Component {
 				</Container>
 			);
 		}
-		else {
-			return <p>Loading</p>;
+		else if (!token || isLoading) {
+			return <LoadingScreen />;
 		}
 	}
 }
