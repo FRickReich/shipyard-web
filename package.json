@@ -4,7 +4,8 @@
 	"description": "A Game Content Serving API and Web-Application for Unity",
 	"scripts": {
 		"start": "concurrently \"brunch watch\" \"nodemon server/server.js\"",
-		"prod": "brunch build --production && node server/server.js"
+		"prod": "brunch build --production && node server/server.js",
+		"pull": "git pull && docker-compose restart web"
 	},
 	"dependencies": {
 		"bcrypt": "^3.0.7",
