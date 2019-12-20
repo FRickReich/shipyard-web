@@ -15,12 +15,22 @@ class CookieConsentMessage extends Component {
 		};
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		const cookie = getFromStorage('cookie-consent');
+
+		if (cookie) {
+			const { dismissed } = cookie;
+
+			if (dismissed == true) {
+				this.setState({ visible: false });
+			}
+		}
+	}
 
 	handleDismiss() {
 		this.setState({ visible: false });
 
-		setInStorage('botany-bay-cookie', { accepted: true });
+		setInStorage('cookie-consent', { dismissed: true, date: Date.now() });
 	}
 
 	render() {
@@ -38,8 +48,3 @@ class CookieConsentMessage extends Component {
 }
 
 export default CookieConsentMessage;
-
-/*
-We use cookies to ensure you the best experience. By using our website you agree to our Cookie
-					Policy.<Button floated="right">Ok. understood</Button>
-*/
