@@ -12,6 +12,7 @@ import { getFromStorage } from './../../utils/storage';
 
 import DashboardHeader from './../../components/DashboardHeader/DashboardHeader';
 import LoadingScreen from './../../components/LoadingScreen/LoadingScreen';
+import TexEditor from './../../components/TextEditor/TextEditor';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -116,6 +117,8 @@ class Dashboard extends Component {
 								<Statistic.Label>Verified</Statistic.Label>
 							</Statistic>
 						</Statistic.Group>
+
+						<TexEditor />
 					</Container>
 				</Container>
 			);
