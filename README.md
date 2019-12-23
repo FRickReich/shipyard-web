@@ -11,3 +11,16 @@ Technology:
 - MERN stack.
 - TravisCI for building.
 - Brunch.io for packaging.
+
+application:
+
+Dashboard ----> Account ------>	Overview
+								Settings
+
+				Translation	----->	Collection	----->	Item
+
+				Inventory 	----->	Collection	----->	Item
+
+				Message		----->	Date		-----> 	Item
+
+				Asset		----->  Item

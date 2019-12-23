@@ -1,6 +1,9 @@
 'use strict';
 
 import React, { Component } from 'react';
+import 'whatwg-fetch';
+
+import { getFromStorage } from './utils/storage';
 
 import CookieConsentMessage from './components/CookieConsentMessage/CookieConsentMessage';
 

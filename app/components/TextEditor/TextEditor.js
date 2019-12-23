@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-
+import 'whatwg-fetch';
 import { Button, Segment, Menu, Form, TextArea, Radio, Icon, Dropdown, Header } from 'semantic-ui-react';
 
 import ReactMarkdown from 'react-markdown';
@@ -12,8 +12,39 @@ class TextEditor extends Component {
 
 		this.state = {
 			value: '',
-			showPreview: false
+			showPreview: false,
+			user: ''
 		};
+	}
+
+	saveMessage()
+	{
+		const { user } = this.props;
+		const { value } = this.state;
+
+		if(this.props.user)
+		{
+			console.log(this.props.user);
+			console.log("Saving...");
+
+			fetch(`/api/${ user }/message/new`,
+        {
+            method: 'POST',
+            headers:
+            {
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({
+                text: value
+            })
+        })
+        .then(res => res.json())
+        .then(json =>
+        {
+            console.log(json);
+        });
+		}
 	}
 
 	togglePreview() {
@@ -95,6 +126,8 @@ class TextEditor extends Component {
 	render() {
 		const { value, showPreview } = this.state;
 
+		console.log(this.state.user);
+
 		return (
 			<Segment>
 				<Menu attached borderless>
@@ -171,7 +204,7 @@ class TextEditor extends Component {
 				<Menu borderless attached>
 					<Menu.Menu position="right">
 						<Menu.Item>
-							<Button>Save</Button>
+							<Button onClick={this.saveMessage.bind(this)}>Save</Button>
 						</Menu.Item>
 					</Menu.Menu>
 				</Menu>

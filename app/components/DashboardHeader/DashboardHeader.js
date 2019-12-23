@@ -43,15 +43,13 @@ class DashboardHeader extends Component {
 					});
 
 					this.props.history.push('/');
-				}
-				else {
+				} else {
 					this.setState({
 						isLoading: false
 					});
 				}
 			});
-		}
-		else {
+		} else {
 			this.setState({
 				isLoading: false
 			});

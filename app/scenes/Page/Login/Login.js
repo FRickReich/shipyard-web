@@ -6,7 +6,7 @@ import 'whatwg-fetch';
 
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 
-import { setInStorage } from './../../utils/storage';
+import { setInStorage } from './../../../utils/storage';
 
 class Login extends Component {
 	constructor(props) {
@@ -71,8 +71,7 @@ class Login extends Component {
 						password: '',
 						token: json.token
 					});
-				}
-				else {
+				} else {
 					this.setState({
 						signInError: json.message
 					});

@@ -12,21 +12,21 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		default: ''
 	},
-	isDeleted: {
-		type: Boolean,
-		default: false
-	},
 	signUpDate: {
 		type: Date,
 		default: Date.now()
+	},
+	verificationToken: {
+		type: String,
+		default: ''
 	},
 	isVerified: {
 		type: Boolean,
 		default: false
 	},
-	verificationToken: {
-		type: String,
-		default: ''
+	isDeleted: {
+		type: Boolean,
+		default: false
 	}
 });
 

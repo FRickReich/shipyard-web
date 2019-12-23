@@ -21,9 +21,6 @@ class PageHeader extends Component {
 							<Menu.Item as={NavLink} name="home" exact to="/">
 								Home
 							</Menu.Item>
-							<Menu.Item as={NavLink} name="error" to="/asdf">
-								Error
-							</Menu.Item>
 							<Menu.Item position="right" as={NavLink} name="dashboard" to="/dashboard">
 								Dashboard
 							</Menu.Item>
