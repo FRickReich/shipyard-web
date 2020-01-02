@@ -20,7 +20,7 @@ module.exports = (app) => {
 		message.text = body.text;
 		message.createdby = req.params.userId;
 
-		message.save((err, user) => {
+		message.save((err) => {
 			if (err) {
 				console.log(err);
 
