@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "A Game Content Serving API and Web-Application for Unity",
 	"scripts": {
-		"start": "concurrently \"brunch watch\" \"nodemon server/server.js\"",
+		"start": "npm i bcrypt && concurrently \"brunch watch\" \"nodemon server/server.js\"",
 		"prod": "brunch build --production && node server/server.js",
 		"pull": "git pull && docker-compose restart web"
 	},
