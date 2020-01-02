@@ -21,8 +21,7 @@ class Register extends Component {
 		fetch(`/api/${email}/mail`).then((res) => res.json()).then((json) => {
 			if (json.success) {
 				console.log(json);
-			}
-			else {
+			} else {
 				console.log(json);
 			}
 		});
@@ -72,8 +71,7 @@ class Register extends Component {
 						email: '',
 						password: ''
 					});
-				}
-				else {
+				} else {
 					this.setState({
 						signUpError: json.message
 					});

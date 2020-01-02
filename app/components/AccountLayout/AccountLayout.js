@@ -6,11 +6,10 @@ import React, { Component } from 'react';
 import { Statistic, Icon, Container, Divider, Table, Button, Grid } from 'semantic-ui-react';
 
 import DashboardHeader from './../DashboardHeader/DashboardHeader';
-import DashboardSidebar from './../DashboardSidebar/DashboardSidebar';
 
 import { getFromStorage } from './../../utils/storage';
 
-class DashboardLayout extends Component {
+class AccountLayout extends Component {
 	constructor(props) {
 		super(props);
 
@@ -88,10 +87,7 @@ class DashboardLayout extends Component {
 				<Divider hidden />
 				<Container fluid>
 					<Grid>
-						<Grid.Column width={4}>
-							<DashboardSidebar />
-						</Grid.Column>
-						<Grid.Column width={12}>{this.props.children}</Grid.Column>
+						<Grid.Column width={16}>{this.props.children}</Grid.Column>
 					</Grid>
 				</Container>
 			</Container>
@@ -99,4 +95,4 @@ class DashboardLayout extends Component {
 	}
 }
 
-export default withRouter(DashboardLayout);
+export default withRouter(AccountLayout);

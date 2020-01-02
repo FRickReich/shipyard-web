@@ -1,64 +1,45 @@
 'use strict';
 
+import { withRouter, NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
 import 'whatwg-fetch';
 
-//import moment from 'moment';
+import moment from 'moment';
 
-import { Statistic, Icon, Container, Divider, Table, Button, Grid } from 'semantic-ui-react';
+import {
+	Statistic,
+	Icon,
+	Card,
+	Button,
+	Message,
+	Grid,
+	Divider,
+	Header,
+	Segment,
+	Dimmer,
+	Loader
+} from 'semantic-ui-react';
+
+import AccountLayout from './../../../components/AccountLayout/AccountLayout';
 
 import { getFromStorage } from './../../../utils/storage';
-
-import LoadingScreen from './../../../components/LoadingScreen/LoadingScreen';
-import DashboardLayout from './../../../components/DashboardLayout/DashboardLayout';
 
 class DashboardOverview extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			isLoading: true,
-			token: '',
 			userData: [],
-			messages: []
+			messages: [],
+			statisticsLoading: true
 		};
 	}
 
-	componentDidMount() {
-		const obj = getFromStorage('botany-bay');
-
-		if (obj && obj.token !== '') {
-		} else {
-			return this.props.history.push('/dashboard/login');
-		}
-
-		if (obj && obj.token) {
-			const { token } = obj;
-
-			// Verify token
-			fetch('/api/account/verify?token=' + token).then((res) => res.json()).then((json) => {
-				if (json.success) {
-					this.getUserInfo();
-
-					this.setState({
-						token,
-						isLoading: false
-					});
-				} else {
-					this.setState({
-						isLoading: false,
-						userData: []
-					});
-				}
-			});
-		} else {
-			this.setState({
-				isLoading: false
-			});
-		}
+	componentWillMount() {
+		this.getUserStatistics();
 	}
 
-	getUserInfo() {
+	getUserStatistics() {
 		const obj = getFromStorage('botany-bay');
 
 		if (obj && obj.token) {
@@ -70,28 +51,99 @@ class DashboardOverview extends Component {
 
 				if (json.success) {
 					this.setState({
-						isLoading: false,
+						statisticsLoading: false,
 						userData: json.data
 					});
 				}
 			});
 		} else {
 			this.setState({
-				isLoading: false
+				statisticsLoading: false
 			});
 		}
 	}
 
 	render() {
-		const { token, userData, isLoading, messages } = this.state;
+		const { userData, statisticsLoading } = this.state;
 
-		console.log(messages);
+		let registrationDate = moment(userData.signUpDate).fromNow(true);
 
-		if (token) {
-			return <DashboardLayout>test</DashboardLayout>;
-		} else if (!token || isLoading) {
-			return <LoadingScreen />;
-		}
+		return (
+			<AccountLayout>
+				<Header
+					as="h2"
+					content="Account Overview"
+					subheader={`View useful Account informations and statistics for account ${userData.id}.`}
+				/>
+
+				<Divider horizontal>
+					<Header as="h4">Account Statistics</Header>
+				</Divider>
+
+				<Segment basic>
+					<Dimmer active={statisticsLoading} inverted style={{ height: 100 }}>
+						<Loader size="large">Loading</Loader>
+					</Dimmer>
+
+					{statisticsLoading === false && (
+						<Statistic.Group size="tiny">
+							<Statistic>
+								<Statistic.Value>{registrationDate}</Statistic.Value>
+								<Statistic.Label>Registered</Statistic.Label>
+							</Statistic>
+							<Statistic>
+								<Statistic.Value>
+									{userData.isVerified ? (
+										<Icon color="green" name="checkmark" />
+									) : (
+										<Icon color="red" name="cancel" />
+									)}
+								</Statistic.Value>
+								<Statistic.Label>Verified</Statistic.Label>
+							</Statistic>
+						</Statistic.Group>
+					)}
+				</Segment>
+
+				<Divider horizontal>
+					<Header as="h4">Projects</Header>
+				</Divider>
+
+				<Segment basic>
+					<Segment placeholder>
+						<Grid columns={1} stackable textAlign="center">
+							<Grid.Column>
+								<Header>You dont have any projects yet.</Header>
+								<Button primary as={NavLink} exact to="/dashboard/projects/create">
+									Create new Project
+								</Button>
+							</Grid.Column>
+						</Grid>
+					</Segment>
+					{/* <Button basic animated="fade" size="huge" >
+						<Button.Content visible>
+							You dont have any projects yet, want to create a new one?
+						</Button.Content>
+						<Button.Content hidden>
+							<Icon name="add" />
+						</Button.Content>
+					</Button> */}
+
+					{/* <Card.Group centered itemsPerRow={3}>
+						<Card>
+							<Card.Content>
+								<Card.Description>Matthew is a pianist living in Nashville.</Card.Description>
+							</Card.Content>
+							<Card.Content extra>
+								<Button basic color="green">
+									+
+								</Button>
+							</Card.Content>
+						</Card>
+					</Card.Group> */}
+				</Segment>
+			</AccountLayout>
+		);
 	}
 }
 

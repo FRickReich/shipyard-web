@@ -3,7 +3,7 @@
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
-import { Grid, Icon, Container, Header } from 'semantic-ui-react';
+import { Grid, Icon, Header } from 'semantic-ui-react';
 
 import PageLayout from './../../../components/PageLayout/PageLayout';
 
@@ -12,6 +12,10 @@ class NotFound extends Component {
 		super(props);
 
 		this.state = {};
+	}
+
+	goBack() {
+		this.props.history.goBack();
 	}
 
 	render() {
@@ -26,7 +30,7 @@ class NotFound extends Component {
 								<Header.Subheader>The page you're' trying to reach does not exist.</Header.Subheader>
 							</Header.Content>
 						</Header>
-						<Link to="/">Go back to homepage</Link>
+						<Link onClick={this.goBack.bind(this)}>Return to previous page</Link>
 					</Grid.Column>
 				</Grid>
 			</PageLayout>

@@ -1,9 +1,9 @@
 'use strict';
 
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
 
-import { Button, Modal, Dropdown, Icon, Container, Menu, Header } from 'semantic-ui-react';
+import { Button, Modal, Dropdown, Icon, Container, Menu, Header, Loader, Segment, Divider } from 'semantic-ui-react';
 
 import { getFromStorage } from './../../utils/storage';
 
@@ -11,7 +11,7 @@ class DashboardHeader extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { logoutModalOpen: false, isLoading: false };
+		this.state = { logoutModalOpen: false, isLoading: true };
 	}
 
 	openLogoutModal() {
@@ -58,20 +58,63 @@ class DashboardHeader extends Component {
 
 	render() {
 		const { userData } = this.props;
-		const { logoutModalOpen } = this.state;
+		const { logoutModalOpen, isLoading } = this.state;
 
 		return (
 			<Container>
-				<Menu pointing secondary>
-					<Menu.Item name="account" />
-					<Menu.Menu position="right">
-						<Dropdown item text={userData.email}>
+				<Segment vertical>
+					<Menu secondary>
+						<Menu.Menu position="right">
+							{/* <Dropdown item text="Project" pointing="top left">
 							<Dropdown.Menu>
-								<Dropdown.Item onClick={this.openLogoutModal.bind(this)}>Log-out</Dropdown.Item>
+								<Dropdown.Item>Create new Project</Dropdown.Item>
 							</Dropdown.Menu>
-						</Dropdown>
-					</Menu.Menu>
-				</Menu>
+						</Dropdown> */}
+							<Menu.Item>
+								<Button primary as={NavLink} exact to="/dashboard/projects/create">
+									Create new Project
+								</Button>
+							</Menu.Item>
+
+							<Dropdown
+								item
+								pointing="top right"
+								text={userData && userData.email}
+								loading={userData ? false : true}
+							>
+								<Dropdown.Menu>
+									<Dropdown.Item
+										icon="dashboard"
+										text="Overview"
+										as={NavLink}
+										exact
+										to="/dashboard"
+									/>
+									<Dropdown.Item
+										icon="settings"
+										text="Settings"
+										as={NavLink}
+										exact
+										to="/dashboard/settings"
+									/>
+									<Dropdown.Item
+										icon="user"
+										text="Profile"
+										as={NavLink}
+										exact
+										to="/dashboard/profile"
+									/>
+									<Dropdown.Divider />
+									<Dropdown.Item
+										icon="log out"
+										onClick={this.openLogoutModal.bind(this)}
+										text="Log-out"
+									/>
+								</Dropdown.Menu>
+							</Dropdown>
+						</Menu.Menu>
+					</Menu>
+				</Segment>
 				<Modal
 					open={logoutModalOpen}
 					onOpen={this.openLogoutModal}
@@ -98,3 +141,23 @@ class DashboardHeader extends Component {
 }
 
 export default withRouter(DashboardHeader);
+
+{
+	/*
+						<Menu.Item>
+					<Menu.Header>Account</Menu.Header>
+
+					<Menu.Menu>
+						<Menu.Item as={NavLink} exact to="/dashboard">
+							Overview
+						</Menu.Item>
+						<Menu.Item as={NavLink} exact to="/dashboard/settings">
+							Settings
+						</Menu.Item>
+						<Menu.Item as={NavLink} exact to="/dashboard/profile">
+							Profile
+						</Menu.Item>
+					</Menu.Menu>
+				</Menu.Item>
+				*/
+}
