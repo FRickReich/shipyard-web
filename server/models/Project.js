@@ -8,6 +8,10 @@ const ProjectSchema = new mongoose.Schema({
 		unique: true,
 		default: 'Default Project'
 	},
+	isActive: {
+		type: Boolean,
+		default: false
+	},
 	created: {
 		type: Date,
 		default: Date.now()
@@ -20,7 +24,9 @@ const ProjectSchema = new mongoose.Schema({
 		type: String,
 		default: ''
 	},
-	team: [ String ]
+	team: [
+		String
+	]
 });
 
 module.exports = mongoose.model('Project', ProjectSchema);
