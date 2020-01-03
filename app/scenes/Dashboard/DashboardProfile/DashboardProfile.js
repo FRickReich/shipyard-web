@@ -41,14 +41,6 @@ class DashboardProfile extends Component {
 		});
 	}
 
-	createRandomName(event) {
-		fetch('/api/account/createusername').then((res) => res.json()).then((json) => {
-			if (json) {
-				this.setState({ username: json.message });
-			}
-		});
-	}
-
 	onUsernameChange(event) {
 		this.setState({ username: event.target.value });
 	}
@@ -178,15 +170,6 @@ class DashboardProfile extends Component {
 									<Form.Field>
 										<label>Username</label>
 										<Input
-											icon={
-												<Icon
-													name="sync alternate"
-													inverted
-													circular
-													link
-													onClick={this.createRandomName.bind(this)}
-												/>
-											}
 											placeholder="Username"
 											value={username}
 											onChange={this.onUsernameChange.bind(this)}
