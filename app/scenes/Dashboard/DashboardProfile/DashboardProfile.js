@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import 'whatwg-fetch';
 
-import { Input, Header, Divider, Dimmer, Loader, Segment, Button, Form, Message } from 'semantic-ui-react';
+import { Input, Header, Divider, Grid, Dimmer, Loader, Segment, Button, Form, Message } from 'semantic-ui-react';
 
 import AccountLayout from './../../../components/AccountLayout/AccountLayout';
 
@@ -16,9 +16,11 @@ class DashboardProfile extends Component {
 
 		this.state = {
 			isLoading: true,
-			firstName: '',
-			lastName: '',
+			username: '',
+			firstname: '',
+			lastname: '',
 			company: '',
+			website: '',
 			countries: [],
 			savingUser: false,
 			showSaveMessage: true,
@@ -39,12 +41,16 @@ class DashboardProfile extends Component {
 		});
 	}
 
-	onFirstNameChange(event) {
-		this.setState({ firstName: event.target.value });
+	onUsernameChange(event) {
+		this.setState({ username: event.target.value });
 	}
 
-	onLastNameChange(event) {
-		this.setState({ lastName: event.target.value });
+	onFirstnameChange(event) {
+		this.setState({ firstname: event.target.value });
+	}
+
+	onLastnameChange(event) {
+		this.setState({ lastname: event.target.value });
 	}
 
 	onCompanyChange(event) {
@@ -53,6 +59,10 @@ class DashboardProfile extends Component {
 
 	onCountryChange(event) {
 		this.setState({ country: event.target.value });
+	}
+
+	onWebsiteChange(event) {
+		this.setState({ website: event.target.value });
 	}
 
 	getUser() {
@@ -66,14 +76,17 @@ class DashboardProfile extends Component {
 				if (json.success) {
 					this.setState({
 						isLoading: false,
-						firstName: json.data.firstName,
-						lastName: json.data.lastName,
+						username: json.data.username,
+						firstname: json.data.firstname,
+						lastname: json.data.lastname,
 						country: json.data.country,
-						company: json.data.company
+						company: json.data.company,
+						website: json.data.website
 					});
 				}
 			});
-		} else {
+		}
+		else {
 			this.setState({
 				isLoading: false
 			});
@@ -81,7 +94,7 @@ class DashboardProfile extends Component {
 	}
 
 	updateUser() {
-		const { firstName, lastName, country, company } = this.state;
+		const { username, firstname, lastname, country, company, website } = this.state;
 		const obj = getFromStorage('botany-bay');
 
 		this.setState({ savingUser: true, showSaveMessage: false });
@@ -96,10 +109,12 @@ class DashboardProfile extends Component {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					firstName: firstName,
-					lastName: lastName,
+					username: username,
+					firstname: firstname,
+					lastname: lastname,
 					country: country,
-					company: company
+					company: company,
+					website: website
 				})
 			})
 				.then((res) => res.json())
@@ -108,7 +123,8 @@ class DashboardProfile extends Component {
 
 					this.setState({ savingUser: false, showSaveMessage: false });
 				});
-		} else {
+		}
+		else {
 			this.setState({
 				savingUser: false,
 				showSaveMessage: false
@@ -117,7 +133,17 @@ class DashboardProfile extends Component {
 	}
 
 	render() {
-		const { firstName, lastName, country, company, countries, savingUser, showSaveMessage } = this.state;
+		const {
+			username,
+			firstname,
+			lastname,
+			country,
+			company,
+			countries,
+			website,
+			savingUser,
+			showSaveMessage
+		} = this.state;
 
 		return (
 			<AccountLayout>
@@ -127,52 +153,86 @@ class DashboardProfile extends Component {
 
 				<Header as="h2" content="Account Profile" subheader="Manage your profile" />
 
-				<Divider horizontal>
-					<Header as="h4">Personal Informations</Header>
-				</Divider>
-
 				<Segment basic>
 					<Dimmer active={savingUser} inverted>
-						>
 						<Loader />
 					</Dimmer>
 
-					<Form>
-						<Form.Group widths="equal">
-							<Form.Input
-								fluid
-								label="First name"
-								value={firstName}
-								onChange={this.onFirstNameChange.bind(this)}
-							/>
-							<Form.Input
-								fluid
-								label="Last name"
-								value={lastName}
-								onChange={this.onLastNameChange.bind(this)}
-							/>
-						</Form.Group>
+					<Grid columns={2} stackable textAlign="center">
+						<Grid.Row>
+							<Grid.Column width={12}>
+								<Divider horizontal>
+									<Header as="h4">Personal Informations</Header>
+								</Divider>
 
-						<Form.Field>
-							<label>Country</label>
-							<Input
-								list="countries"
-								placeholder="Choose Country"
-								value={country}
-								onChange={this.onCountryChange.bind(this)}
-							/>
-							<datalist id="countries">
-								{countries.map((country, i) => {
-									return <option key={i} value={country.name} />;
-								})}
-							</datalist>
-						</Form.Field>
+								<Form>
+									<Form.Field>
+										<label>Username</label>
+										<Input
+											placeholder="Username"
+											value={username}
+											onChange={this.onUsernameChange.bind(this)}
+										/>
+									</Form.Field>
 
-						<Form.Field>
-							<label>Company</label>
-							<Input placeholder="Company" value={company} onChange={this.onCompanyChange.bind(this)} />
-						</Form.Field>
-					</Form>
+									<Form.Group widths="equal">
+										<Form.Input
+											fluid
+											label="First name"
+											value={firstname}
+											onChange={this.onFirstnameChange.bind(this)}
+										/>
+										<Form.Input
+											fluid
+											label="Last name"
+											value={lastname}
+											onChange={this.onLastnameChange.bind(this)}
+										/>
+									</Form.Group>
+
+									<Form.Field>
+										<label>Country</label>
+										<Input
+											list="countries"
+											placeholder="Choose Country"
+											value={country}
+											onChange={this.onCountryChange.bind(this)}
+										/>
+										<datalist id="countries">
+											{countries.map((country, i) => {
+												return <option key={i} value={country.name} />;
+											})}
+										</datalist>
+									</Form.Field>
+
+									<Form.Field>
+										<label>Company</label>
+										<Input
+											placeholder="Company"
+											value={company}
+											onChange={this.onCompanyChange.bind(this)}
+										/>
+									</Form.Field>
+
+									<Form.Field>
+										<label>Website</label>
+										<Input
+											placeholder="Website"
+											value={website}
+											onChange={this.onWebsiteChange.bind(this)}
+										/>
+									</Form.Field>
+								</Form>
+							</Grid.Column>
+
+							<Grid.Column width={4}>
+								<Divider horizontal>
+									<Header as="h4">Projects</Header>
+								</Divider>
+							</Grid.Column>
+						</Grid.Row>
+					</Grid>
+
 					<Divider horizontal />
 					<Button floated="right" positive loading={savingUser} onClick={this.updateUser.bind(this)}>
 						Save

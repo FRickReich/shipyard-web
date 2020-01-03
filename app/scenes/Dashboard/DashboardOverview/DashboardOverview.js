@@ -56,7 +56,8 @@ class DashboardOverview extends Component {
 					});
 				}
 			});
-		} else {
+		}
+		else {
 			this.setState({
 				statisticsLoading: false
 			});
@@ -73,7 +74,7 @@ class DashboardOverview extends Component {
 				<Header
 					as="h2"
 					content="Account Overview"
-					subheader={`View useful Account informations and statistics for account ${userData.id}.`}
+					subheader={`View useful Account informations and statistics for account ${userData.username} (${userData.id}).`}
 				/>
 
 				<Divider horizontal>

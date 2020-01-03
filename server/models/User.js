@@ -8,11 +8,15 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		default: ''
 	},
-	firstName: {
+	username: {
 		type: String,
 		default: ''
 	},
-	lastName: {
+	firstname: {
+		type: String,
+		default: ''
+	},
+	lastname: {
 		type: String,
 		default: ''
 	},
@@ -21,6 +25,10 @@ const UserSchema = new mongoose.Schema({
 		default: ''
 	},
 	country: {
+		type: String,
+		default: ''
+	},
+	website: {
 		type: String,
 		default: ''
 	},

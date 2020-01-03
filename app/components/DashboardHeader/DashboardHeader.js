@@ -43,13 +43,15 @@ class DashboardHeader extends Component {
 					});
 
 					this.props.history.push('/');
-				} else {
+				}
+				else {
 					this.setState({
 						isLoading: false
 					});
 				}
 			});
-		} else {
+		}
+		else {
 			this.setState({
 				isLoading: false
 			});
@@ -79,7 +81,7 @@ class DashboardHeader extends Component {
 							<Dropdown
 								item
 								pointing="top right"
-								text={userData && userData.email}
+								text={userData && userData.username}
 								loading={userData ? false : true}
 							>
 								<Dropdown.Menu>

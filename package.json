@@ -24,7 +24,8 @@
 		"react-router": "^5.0.0",
 		"react-router-dom": "^5.0.0",
 		"semantic-ui-react": "^0.88.2",
-		"whatwg-fetch": "^3.0.0"
+		"whatwg-fetch": "^3.0.0",
+		"xm-username-generator": "^1.0.1"
 	},
 	"devDependencies": {
 		"auto-reload-brunch": "^2.0.0",

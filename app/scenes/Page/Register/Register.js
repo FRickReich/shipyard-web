@@ -13,7 +13,8 @@ class Register extends Component {
 			signUpError: '',
 			registrationSuccess: false,
 			email: '',
-			password: ''
+			password: '',
+			passwordValidation: ''
 		};
 	}
 
@@ -21,7 +22,8 @@ class Register extends Component {
 		fetch(`/api/${email}/mail`).then((res) => res.json()).then((json) => {
 			if (json.success) {
 				console.log(json);
-			} else {
+			}
+			else {
 				console.log(json);
 			}
 		});
@@ -39,48 +41,62 @@ class Register extends Component {
 		});
 	}
 
+	onTextboxChangeSignUpPasswordValidation(event) {
+		this.setState({
+			passwordValidation: event.target.value
+		});
+	}
+
 	onSignUp() {
 		// Grab state
-		const { email, password } = this.state;
+		const { email, password, passwordValidation } = this.state;
 
-		this.setState({
-			isLoading: true
-		});
-
-		// Post request to backend
-		fetch('/api/account/signup', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				email: email,
-				password: password
-			})
-		})
-			.then((res) => res.json())
-			.then((json) => {
-				console.log('json', json);
-
-				if (json.success) {
-					this.sendVerificationEmail(email);
-
-					this.setState({
-						signUpError: json.message,
-						registrationSuccess: true,
-						email: '',
-						password: ''
-					});
-				} else {
-					this.setState({
-						signUpError: json.message
-					});
-				}
+		if (password === passwordValidation) {
+			this.setState({
+				isLoading: true
 			});
+
+			// Post request to backend
+			fetch('/api/account/signup', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					email: email,
+					password: password
+				})
+			})
+				.then((res) => res.json())
+				.then((json) => {
+					console.log('json', json);
+
+					if (json.success) {
+						this.sendVerificationEmail(email);
+
+						this.setState({
+							signUpError: json.message,
+							registrationSuccess: true,
+							email: '',
+							password: ''
+						});
+					}
+					else {
+						this.setState({
+							signUpError: json.message
+						});
+					}
+				});
+		}
+		else {
+			this.setState({
+				signUpError: 'Passwords do not match'
+			});
+		}
 	}
 
 	render() {
-		const { email, password, registrationSuccess, signUpError } = this.state;
+		const { email, password, passwordValidation, registrationSuccess, signUpError } = this.state;
 
 		console.log(registrationSuccess);
 
@@ -111,6 +127,16 @@ class Register extends Component {
 								type="password"
 								value={password}
 								onChange={this.onTextboxChangeSignUpPassword.bind(this)}
+							/>
+							<Form.Input
+								fluid
+								icon="lock"
+								disabled={registrationSuccess ? true : false}
+								iconPosition="left"
+								placeholder="Repeat Password"
+								type="password"
+								value={passwordValidation}
+								onChange={this.onTextboxChangeSignUpPasswordValidation.bind(this)}
 							/>
 							<Button color="teal" fluid size="large" onClick={this.onSignUp.bind(this)}>
 								Register

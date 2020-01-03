@@ -1,8 +1,10 @@
 'use strict';
 
+const usernameGenerator = require('xm-username-generator');
+const SHA256 = require('crypto-js/sha256');
+
 const User = require('../../models/User');
 const UserSession = require('../../models/UserSession');
-const SHA256 = require('crypto-js/sha256');
 
 module.exports = (app) => {
 	app.post('/api/account/signup', (req, res, next) => {
@@ -38,7 +40,8 @@ module.exports = (app) => {
 						success: false,
 						message: 'Error: Server error'
 					});
-				} else if (previousUsers.length > 0) {
+				}
+				else if (previousUsers.length > 0) {
 					return res.send({
 						success: false,
 						message: 'Error: Account already exist.'
@@ -47,6 +50,7 @@ module.exports = (app) => {
 
 				const newUser = new User();
 
+				newUser.username = usernameGenerator.getUsername();
 				newUser.email = email;
 				newUser.password = newUser.generateHash(password);
 				newUser.verificationToken = SHA256(email).toString();
@@ -71,7 +75,6 @@ module.exports = (app) => {
 	app.post('/api/account/signin', (req, res, next) => {
 		const { body } = req;
 		const { password } = body;
-
 		let { email } = body;
 
 		if (!email) {
@@ -166,10 +169,11 @@ module.exports = (app) => {
 						success: false,
 						message: 'Error: Invalid'
 					});
-				} else {
+				}
+				else {
 					return res.send({
 						success: true,
-						message: 'Good'
+						message: 'Verification successful'
 					});
 				}
 			}
@@ -203,7 +207,7 @@ module.exports = (app) => {
 
 				return res.send({
 					success: true,
-					message: 'Good'
+					message: 'Logout successful'
 				});
 			}
 		);
@@ -228,10 +232,12 @@ module.exports = (app) => {
 					success: true,
 					data: {
 						email: user.email,
-						firstName: user.firstName,
-						lastName: user.lastName,
+						username: user.username,
+						firstname: user.firstName,
+						lastname: user.lastName,
 						country: user.country,
 						company: user.company,
+						website: user.website,
 						signUpDate: user.signUpDate,
 						isVerified: user.isVerified,
 						isDeleted: user.isDeleted,
@@ -256,10 +262,12 @@ module.exports = (app) => {
 					});
 				}
 
-				user.firstName = body.firstName;
-				user.lastName = body.lastName;
+				user.username = body.username;
+				user.firstname = body.firstname;
+				user.lastname = body.lastname;
 				user.country = body.country;
 				user.company = body.company;
+				user.website = body.website;
 
 				user
 					.save()
@@ -268,10 +276,12 @@ module.exports = (app) => {
 							success: true,
 							data: {
 								email: user.email,
-								firstName: user.firstName,
-								lastName: user.lastName,
+								username: user.username,
+								firstname: user.firstname,
+								lastname: user.lastname,
 								country: user.country,
 								company: user.company,
+								website: user.website,
 								signUpDate: user.signUpDate,
 								isVerified: user.isVerified,
 								isDeleted: user.isDeleted
