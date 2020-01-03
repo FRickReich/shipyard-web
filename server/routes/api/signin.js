@@ -145,6 +145,13 @@ module.exports = (app) => {
 		);
 	});
 
+	app.get('/api/account/createusername', (req, res, next) => {
+		return res.send({
+			success: true,
+			message: usernameGenerator.getUsername()
+		});
+	});
+
 	app.get('/api/account/verify', (req, res, next) => {
 		const { query } = req;
 		const { token } = query;

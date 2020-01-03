@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import 'whatwg-fetch';
 
-import { Input, Header, Divider, Grid, Dimmer, Loader, Segment, Button, Form, Message } from 'semantic-ui-react';
+import { Input, Header, Icon, Divider, Grid, Dimmer, Loader, Segment, Button, Form, Message } from 'semantic-ui-react';
 
 import AccountLayout from './../../../components/AccountLayout/AccountLayout';
 
@@ -37,6 +37,14 @@ class DashboardProfile extends Component {
 		fetch('https://restcountries.eu/rest/v2/all').then((res) => res.json()).then((json) => {
 			if (json) {
 				this.setState({ countries: json });
+			}
+		});
+	}
+
+	createRandomName(event) {
+		fetch('/api/account/createusername').then((res) => res.json()).then((json) => {
+			if (json) {
+				this.setState({ username: json.message });
 			}
 		});
 	}
@@ -123,6 +131,7 @@ class DashboardProfile extends Component {
 
 					this.setState({ savingUser: false, showSaveMessage: false });
 				});
+			window.location.reload(false);
 		}
 		else {
 			this.setState({
@@ -169,6 +178,15 @@ class DashboardProfile extends Component {
 									<Form.Field>
 										<label>Username</label>
 										<Input
+											icon={
+												<Icon
+													name="sync alternate"
+													inverted
+													circular
+													link
+													onClick={this.createRandomName.bind(this)}
+												/>
+											}
 											placeholder="Username"
 											value={username}
 											onChange={this.onUsernameChange.bind(this)}
