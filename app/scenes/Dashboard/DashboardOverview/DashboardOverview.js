@@ -21,6 +21,7 @@ import {
 } from 'semantic-ui-react';
 
 import AccountLayout from './../../../components/AccountLayout/AccountLayout';
+import DashboardSegment from '../../../components/DashboardSegment/DashboardSegment';
 
 import { getFromStorage } from './../../../utils/storage';
 
@@ -70,47 +71,32 @@ class DashboardOverview extends Component {
 		let registrationDate = moment(userData.signUpDate).fromNow(true);
 
 		return (
-			<AccountLayout>
-				<Header
-					as="h2"
-					content="Account Overview"
-					subheader={`View useful Account informations and statistics for account ${userData.username} (${userData.id}).`}
-				/>
+			<AccountLayout
+				title="Account Overview"
+				subtitle={`View useful Account informations and statistics for account ${userData.username} (${userData.id}).`}
+			>
+				{/* Account Statistics */}
+				<DashboardSegment title="Account Statistics" loading={statisticsLoading}>
+					<Statistic.Group size="tiny">
+						<Statistic>
+							<Statistic.Value>{registrationDate}</Statistic.Value>
+							<Statistic.Label>Registered</Statistic.Label>
+						</Statistic>
+						<Statistic>
+							<Statistic.Value>
+								{userData.isVerified ? (
+									<Icon color="green" name="checkmark" />
+								) : (
+									<Icon color="red" name="cancel" />
+								)}
+							</Statistic.Value>
+							<Statistic.Label>Verified</Statistic.Label>
+						</Statistic>
+					</Statistic.Group>
+				</DashboardSegment>
 
-				<Divider horizontal>
-					<Header as="h4">Account Statistics</Header>
-				</Divider>
-
-				<Segment basic>
-					<Dimmer active={statisticsLoading} inverted style={{ height: 100 }}>
-						<Loader size="large">Loading</Loader>
-					</Dimmer>
-
-					{statisticsLoading === false && (
-						<Statistic.Group size="tiny">
-							<Statistic>
-								<Statistic.Value>{registrationDate}</Statistic.Value>
-								<Statistic.Label>Registered</Statistic.Label>
-							</Statistic>
-							<Statistic>
-								<Statistic.Value>
-									{userData.isVerified ? (
-										<Icon color="green" name="checkmark" />
-									) : (
-										<Icon color="red" name="cancel" />
-									)}
-								</Statistic.Value>
-								<Statistic.Label>Verified</Statistic.Label>
-							</Statistic>
-						</Statistic.Group>
-					)}
-				</Segment>
-
-				<Divider horizontal>
-					<Header as="h4">Projects</Header>
-				</Divider>
-
-				<Segment basic>
+				{/* Projects */}
+				<DashboardSegment title="Projects" loading={statisticsLoading}>
 					<Segment placeholder>
 						<Grid columns={1} stackable textAlign="center">
 							<Grid.Column>
@@ -121,31 +107,25 @@ class DashboardOverview extends Component {
 							</Grid.Column>
 						</Grid>
 					</Segment>
-					{/* <Button basic animated="fade" size="huge" >
-						<Button.Content visible>
-							You dont have any projects yet, want to create a new one?
-						</Button.Content>
-						<Button.Content hidden>
-							<Icon name="add" />
-						</Button.Content>
-					</Button> */}
-
-					{/* <Card.Group centered itemsPerRow={3}>
-						<Card>
-							<Card.Content>
-								<Card.Description>Matthew is a pianist living in Nashville.</Card.Description>
-							</Card.Content>
-							<Card.Content extra>
-								<Button basic color="green">
-									+
-								</Button>
-							</Card.Content>
-						</Card>
-					</Card.Group> */}
-				</Segment>
+				</DashboardSegment>
 			</AccountLayout>
 		);
 	}
 }
 
 export default DashboardOverview;
+
+/*
+<Card.Group centered itemsPerRow={3}>
+    <Card>
+	    <Card.Content>
+		    <Card.Description>Matthew is a pianist living in Nashville.</Card.Description>
+		</Card.Content>
+		<Card.Content extra>
+		    <Button basic color="green">
+			    +
+			</Button>
+        </Card.Content>
+	</Card>
+</Card.Group>
+*/

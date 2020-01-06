@@ -45,6 +45,10 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		default: ''
 	},
+	language: {
+		type: String,
+		default: 'en'
+	},
 	isVerified: {
 		type: Boolean,
 		default: false

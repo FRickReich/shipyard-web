@@ -240,8 +240,8 @@ module.exports = (app) => {
 					data: {
 						email: user.email,
 						username: user.username,
-						firstname: user.firstName,
-						lastname: user.lastName,
+						firstname: user.firstname,
+						lastname: user.lastname,
 						country: user.country,
 						company: user.company,
 						website: user.website,

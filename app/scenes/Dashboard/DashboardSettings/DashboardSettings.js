@@ -3,9 +3,23 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
 
-import { Header, Message } from 'semantic-ui-react';
+import {
+	Statistic,
+	Icon,
+	Card,
+	Button,
+	Message,
+	Grid,
+	Divider,
+	Header,
+	Form,
+	Segment,
+	Dimmer,
+	Loader
+} from 'semantic-ui-react';
 
 import AccountLayout from './../../../components/AccountLayout/AccountLayout';
+import DashboardSegment from '../../../components/DashboardSegment/DashboardSegment';
 
 class DashboardSettings extends Component {
 	constructor(props) {
@@ -16,13 +30,34 @@ class DashboardSettings extends Component {
 
 	render() {
 		return (
-			<AccountLayout>
-				<Header
-					as="h2"
-					content="Account Settings"
-					subheader="Manage your account settings and set preferences"
-				/>
-				{/* password email linked accounts security privacy notification settings deactivate account */}
+			<AccountLayout title="Account Settings" subtitle="Manage your account settings and set preferences">
+				<DashboardSegment title="General" loading={false}>
+					<Form>
+						<Form.Select
+							fluid
+							label="Language"
+							value={'en'}
+							options={[
+								{ key: 'en', text: 'English', value: 'en' },
+								{ key: 'de', text: 'Deutsch', value: 'de' }
+							]}
+							placeholder="Gender"
+						/>
+					</Form>
+					{/* password, language, layout */}
+				</DashboardSegment>
+				<DashboardSegment title="Security" loading={false}>
+					{/* security related settings */}
+				</DashboardSegment>
+				<DashboardSegment title="Email & Notifications" loading={false}>
+					{/* email adresses, notifications, newsletter */}
+				</DashboardSegment>
+				<DashboardSegment title="Privacy" loading={false}>
+					{/* privacy settings */}
+				</DashboardSegment>
+				<DashboardSegment title="Linked Accounts" loading={false}>
+					{/* linked, connected accounts */}
+				</DashboardSegment>
 			</AccountLayout>
 		);
 	}

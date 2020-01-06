@@ -24,9 +24,19 @@ const ProjectSchema = new mongoose.Schema({
 		type: String,
 		default: ''
 	},
+	description: {
+		type: String,
+		default: ''
+	},
+	website: {
+		type: String,
+		default: ''
+	},
 	team: [
 		String
 	]
 });
 
 module.exports = mongoose.model('Project', ProjectSchema);
+
+/* - logo - category - target marketplace - monetarization */

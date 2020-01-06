@@ -5,7 +5,13 @@ const Project = require('../../models/Project');
 module.exports = (app) => {
 	// Get all projects connected to user
 	app.get(`/api/:userId/projects/`, (req, res, next) => {
-		Project.find({ team: { $in: [ req.params.userId ] } })
+		Project.find({
+			team: {
+				$in: [
+					req.params.userId
+				]
+			}
+		})
 			.exec()
 			.then((message) => res.json(message))
 			.catch((err) => next(err));
@@ -13,7 +19,14 @@ module.exports = (app) => {
 
 	// Get single project connected to user
 	app.get(`/api/:userId/projects/:projectId`, (req, res, next) => {
-		Project.find({ team: { $in: [ req.params.userId ] }, title: req.params.projectId })
+		Project.find({
+			team: {
+				$in: [
+					req.params.userId
+				]
+			},
+			title: req.params.projectId
+		})
 			.exec()
 			.then((message) => res.json(message))
 			.catch((err) => next(err));

@@ -4,9 +4,23 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import 'whatwg-fetch';
 
-import { Input, Header, Icon, Divider, Grid, Dimmer, Loader, Segment, Button, Form, Message } from 'semantic-ui-react';
+import {
+	Input,
+	Header,
+	Icon,
+	Divider,
+	Grid,
+	Container,
+	Dimmer,
+	Loader,
+	Segment,
+	Button,
+	Form,
+	Message
+} from 'semantic-ui-react';
 
 import AccountLayout from './../../../components/AccountLayout/AccountLayout';
+import DashboardSegment from '../../../components/DashboardSegment/DashboardSegment';
 
 import { getFromStorage } from './../../../utils/storage';
 
@@ -23,7 +37,7 @@ class DashboardProfile extends Component {
 			website: '',
 			countries: [],
 			savingUser: false,
-			showSaveMessage: true,
+			showSaveMessage: false,
 			country: ''
 		};
 	}
@@ -97,7 +111,7 @@ class DashboardProfile extends Component {
 		const { username, firstname, lastname, country, company, website } = this.state;
 		const obj = getFromStorage('botany-bay');
 
-		this.setState({ savingUser: true, showSaveMessage: false });
+		this.setState({ savingUser: true });
 
 		if (obj && obj.token) {
 			const { token } = obj;
@@ -121,14 +135,13 @@ class DashboardProfile extends Component {
 				.then((json) => {
 					this.getUser();
 
-					this.setState({ savingUser: false, showSaveMessage: false });
+					this.setState({ savingUser: false, showSaveMessage: true });
 				});
-			window.location.reload(false);
+			//window.location.reload(false);
 		}
 		else {
 			this.setState({
-				savingUser: false,
-				showSaveMessage: false
+				savingUser: false
 			});
 		}
 	}
@@ -146,26 +159,20 @@ class DashboardProfile extends Component {
 			showSaveMessage
 		} = this.state;
 
+		console.log(showSaveMessage);
+
 		return (
-			<AccountLayout>
-				<Message hidden={showSaveMessage} success onDismiss={() => this.setState({ showSaveMessage: true })}>
-					Updated user informations.
-				</Message>
-
-				<Header as="h2" content="Account Profile" subheader="Manage your profile" />
-
-				<Segment basic>
-					<Dimmer active={savingUser} inverted>
-						<Loader />
-					</Dimmer>
-
-					<Grid columns={2} stackable textAlign="center">
-						<Grid.Row>
-							<Grid.Column width={12}>
-								<Divider horizontal>
-									<Header as="h4">Personal Informations</Header>
-								</Divider>
-
+			<AccountLayout
+				title="Account Profile"
+				subtitle="Manage your profile"
+				message="User saved succesfully"
+				messagetype="success"
+				showmessage={showSaveMessage}
+			>
+				<Grid columns={2}>
+					<Grid.Row>
+						<Grid.Column width={12}>
+							<DashboardSegment title="Personal Informations" loading={savingUser}>
 								<Form>
 									<Form.Field>
 										<label>Username</label>
@@ -224,21 +231,18 @@ class DashboardProfile extends Component {
 										/>
 									</Form.Field>
 								</Form>
-							</Grid.Column>
+							</DashboardSegment>
+						</Grid.Column>
 
-							<Grid.Column width={4}>
-								<Divider horizontal>
-									<Header as="h4">Projects</Header>
-								</Divider>
-							</Grid.Column>
-						</Grid.Row>
-					</Grid>
-
-					<Divider horizontal />
-					<Button floated="right" positive loading={savingUser} onClick={this.updateUser.bind(this)}>
-						Save
-					</Button>
-				</Segment>
+						<Grid.Column width={4}>
+							<DashboardSegment title="Projects" loading={false} />
+						</Grid.Column>
+					</Grid.Row>
+				</Grid>
+				<Divider horizontal />
+				<Button floated="right" positive loading={savingUser} onClick={this.updateUser.bind(this)}>
+					Save
+				</Button>
 			</AccountLayout>
 		);
 	}

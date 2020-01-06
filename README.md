@@ -12,7 +12,7 @@ Technology:
 - TravisCI for building.
 - Brunch.io for packaging.
 
-application:
+Application:
 
 Dashboard ----> Account ------>	Overview
 								Settings

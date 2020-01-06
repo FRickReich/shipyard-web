@@ -72,11 +72,13 @@ class DashboardHeader extends Component {
 								<Dropdown.Item>Create new Project</Dropdown.Item>
 							</Dropdown.Menu>
 						</Dropdown> */}
-							<Menu.Item>
-								<Button primary as={NavLink} exact to="/dashboard/projects/create">
-									Create new Project
-								</Button>
-							</Menu.Item>
+							{this.props.location.pathname !== '/dashboard/projects/create' && (
+								<Menu.Item>
+									<Button primary as={NavLink} exact to="/dashboard/projects/create">
+										Create new Project
+									</Button>
+								</Menu.Item>
+							)}
 
 							<Dropdown
 								item

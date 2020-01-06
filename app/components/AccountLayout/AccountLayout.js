@@ -3,7 +3,7 @@
 import { withRouter, NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
 
-import { Statistic, Icon, Container, Divider, Table, Button, Grid } from 'semantic-ui-react';
+import { Statistic, Icon, Message, Container, Divider, Header, Table, Button, Grid } from 'semantic-ui-react';
 
 import DashboardHeader from './../DashboardHeader/DashboardHeader';
 
@@ -16,7 +16,8 @@ class AccountLayout extends Component {
 		this.state = {
 			isLoading: true,
 			token: '',
-			userData: []
+			userData: [],
+			hideMessage: false
 		};
 	}
 
@@ -24,7 +25,8 @@ class AccountLayout extends Component {
 		const obj = getFromStorage('botany-bay');
 
 		if (obj && obj.token !== '') {
-		} else {
+		}
+		else {
 			return this.props.history.push('/dashboard/login');
 		}
 
@@ -40,14 +42,16 @@ class AccountLayout extends Component {
 						token,
 						isLoading: false
 					});
-				} else {
+				}
+				else {
 					this.setState({
 						isLoading: false,
 						userData: []
 					});
 				}
 			});
-		} else {
+		}
+		else {
 			this.setState({
 				isLoading: false
 			});
@@ -71,7 +75,8 @@ class AccountLayout extends Component {
 					});
 				}
 			});
-		} else {
+		}
+		else {
 			this.setState({
 				isLoading: false
 			});
@@ -79,7 +84,8 @@ class AccountLayout extends Component {
 	}
 
 	render() {
-		const { userData } = this.state;
+		const { title, subtitle, message, messagetype, showmessage } = this.props;
+		const { userData, hideMessage } = this.state;
 
 		return (
 			<Container>
@@ -87,7 +93,23 @@ class AccountLayout extends Component {
 				<Divider hidden />
 				<Container fluid>
 					<Grid>
-						<Grid.Column width={16}>{this.props.children}</Grid.Column>
+						<Grid.Column width={16}>
+							<Header as="h2" content={title} subheader={subtitle} />
+
+							{showmessage && (
+								<Message
+									hidden={hideMessage}
+									success={messagetype === 'success' ? true : false}
+									negative={messagetype === 'failure' ? true : false}
+									info={messagetype === 'info' ? true : false}
+									onDismiss={() => this.setState({ hideMessage: true })}
+								>
+									{message || 'test-message'}
+								</Message>
+							)}
+
+							{this.props.children}
+						</Grid.Column>
 					</Grid>
 				</Container>
 			</Container>
