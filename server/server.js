@@ -3,17 +3,21 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const mongoose = require('mongoose');
-
 const app = express();
 const port = process.env.PORT;
 const database = process.env.DATABASE_URL;
+var ImageRouter = require('./routes/image');
 
 app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 mongoose.connect(database, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 mongoose.Promise = global.Promise;
+
+// Image upload
+app.use('/image', ImageRouter);
 
 // API routes
 require('./routes')(app);
