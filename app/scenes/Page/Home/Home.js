@@ -6,6 +6,8 @@ import { Header, Container, Divider } from 'semantic-ui-react';
 
 import PageLayout from './../../../components/PageLayout/PageLayout';
 
+import { i18n } from './../../../utils/i18n';
+
 class Home extends Component {
 	constructor(props) {
 		super(props);
@@ -14,6 +16,8 @@ class Home extends Component {
 	}
 
 	render() {
+		const translator = new i18n('de');
+
 		return (
 			<PageLayout>
 				<p>
@@ -27,6 +31,7 @@ class Home extends Component {
 					quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean
 					imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
 				</p>
+				<p>{translator.GetMessage('home')}</p>
 			</PageLayout>
 		);
 	}
