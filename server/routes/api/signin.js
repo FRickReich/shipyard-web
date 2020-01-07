@@ -245,6 +245,7 @@ module.exports = (app) => {
 						country: user.country,
 						company: user.company,
 						website: user.website,
+						image: user.image,
 						signUpDate: user.signUpDate,
 						isVerified: user.isVerified,
 						isDeleted: user.isDeleted,
@@ -275,6 +276,7 @@ module.exports = (app) => {
 				user.country = body.country;
 				user.company = body.company;
 				user.website = body.website;
+				user.image = body.image;
 
 				user
 					.save()
@@ -287,6 +289,7 @@ module.exports = (app) => {
 								firstname: user.firstname,
 								lastname: user.lastname,
 								country: user.country,
+								image: user.image,
 								company: user.company,
 								website: user.website,
 								signUpDate: user.signUpDate,

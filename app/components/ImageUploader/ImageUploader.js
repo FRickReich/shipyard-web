@@ -11,7 +11,7 @@ class ImageUploader extends Component {
 		super(props);
 
 		this.state = {
-			image: null
+			uploadedImageUrl: ''
 		};
 	}
 
@@ -29,30 +29,21 @@ class ImageUploader extends Component {
 			.post(`http://localhost:3000/image/upload`, imageFormObj)
 			.then((data) => {
 				if (data.data.success) {
-					alert('Image has been successfully uploaded using multer');
+					this.props.onUploadImage(data.data.filePath);
 				}
 			})
 			.catch((err) => {
 				alert('Error while uploading image using multer');
 			});
-
-		// if (event.target.files && event.target.files[0]) {
-		// 	let img = event.target.files[0];
-		// 	this.setState({
-		// 		image: URL.createObjectURL(img)
-		// 	});
-		// 	this.props.onUploadImage(URL.createObjectURL(img));
-		// }
-		// console.log(event);
 	}
 
 	render() {
-		const { image } = this.state;
+		const { image } = this.props;
 
 		if (image) {
 			return (
 				<div>
-					<Image rounded fluid src={this.state.image} />
+					<Image rounded fluid src={image} />
 					<input
 						type="file"
 						name="file"
@@ -97,3 +88,12 @@ class ImageUploader extends Component {
 }
 
 export default ImageUploader;
+
+// if (event.target.files && event.target.files[0]) {
+// 	let img = event.target.files[0];
+// 	this.setState({
+// 		image: URL.createObjectURL(img)
+// 	});
+// 	this.props.onUploadImage(URL.createObjectURL(img));
+// }
+// console.log(event);

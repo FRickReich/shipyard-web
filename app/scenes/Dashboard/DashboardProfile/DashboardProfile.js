@@ -96,7 +96,9 @@ class DashboardProfile extends Component {
 						firstname: json.data.firstname,
 						lastname: json.data.lastname,
 						country: json.data.country,
+						image: json.data.image,
 						company: json.data.company,
+						user: json.data.image,
 						website: json.data.website
 					});
 				}
@@ -181,7 +183,7 @@ class DashboardProfile extends Component {
 					<Grid.Row>
 						<Grid.Column width={4}>
 							<DashboardSegment title="Profile Picture" loading={false}>
-								<ImageUploader onUploadImage={this.handleImageUpload.bind(this)} />
+								<ImageUploader image={image} onUploadImage={this.handleImageUpload.bind(this)} />
 							</DashboardSegment>
 						</Grid.Column>
 						<Grid.Column width={8}>
@@ -210,7 +212,6 @@ class DashboardProfile extends Component {
 											onChange={this.onLastnameChange.bind(this)}
 										/>
 									</Form.Group>
-
 									<Form.Field>
 										<label>Country</label>
 										<Input
@@ -225,7 +226,6 @@ class DashboardProfile extends Component {
 											})}
 										</datalist>
 									</Form.Field>
-
 									<Form.Field>
 										<label>Company</label>
 										<Input
@@ -234,7 +234,6 @@ class DashboardProfile extends Component {
 											onChange={this.onCompanyChange.bind(this)}
 										/>
 									</Form.Field>
-
 									<Form.Field>
 										<label>Website</label>
 										<Input

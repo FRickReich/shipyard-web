@@ -18,6 +18,9 @@ services:
     environment:
       DATABASE_URL: "mongodb://mongo:27017/db"
       PORT: 8080
+      CDN_ENDPOINT: "fra1.digitaloceanspaces.com"
+      CDN_KEY: "D3ZQKBHRIL3BSTCQSB7J"
+      CDN_SECRET: "OpcljBqGrL7yrURH0y+EBo8N6uy1i6JAkpgPf+LTpW0"
 
   mongo:
     image: mongo:3
