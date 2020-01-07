@@ -13,11 +13,10 @@ class Home extends Component {
 		super(props);
 
 		this.state = {};
+		this.translator = new i18n('de');
 	}
 
 	render() {
-		const translator = new i18n('de');
-
 		return (
 			<PageLayout>
 				<p>
@@ -31,7 +30,7 @@ class Home extends Component {
 					quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean
 					imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
 				</p>
-				<p>{translator.GetMessage('home')}</p>
+				<p>{this.translator.GetMessage('home')}</p>
 			</PageLayout>
 		);
 	}
