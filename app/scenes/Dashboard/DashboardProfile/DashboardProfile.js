@@ -21,6 +21,7 @@ import {
 
 import AccountLayout from './../../../components/AccountLayout/AccountLayout';
 import DashboardSegment from '../../../components/DashboardSegment/DashboardSegment';
+import ImageUploader from '../../../components/ImageUploader/ImageUploader';
 
 import { getFromStorage } from './../../../utils/storage';
 
@@ -38,6 +39,7 @@ class DashboardProfile extends Component {
 			countries: [],
 			savingUser: false,
 			showSaveMessage: false,
+			image: '',
 			country: ''
 		};
 	}
@@ -108,7 +110,7 @@ class DashboardProfile extends Component {
 	}
 
 	updateUser() {
-		const { username, firstname, lastname, country, company, website } = this.state;
+		const { username, firstname, lastname, country, company, website, image } = this.state;
 		const obj = getFromStorage('botany-bay');
 
 		this.setState({ savingUser: true });
@@ -128,7 +130,8 @@ class DashboardProfile extends Component {
 					lastname: lastname,
 					country: country,
 					company: company,
-					website: website
+					website: website,
+					image: image
 				})
 			})
 				.then((res) => res.json())
@@ -146,12 +149,17 @@ class DashboardProfile extends Component {
 		}
 	}
 
+	handleImageUpload(profileImage) {
+		this.setState({ image: profileImage });
+	}
+
 	render() {
 		const {
 			username,
 			firstname,
 			lastname,
 			country,
+			image,
 			company,
 			countries,
 			website,
@@ -171,7 +179,12 @@ class DashboardProfile extends Component {
 			>
 				<Grid columns={2}>
 					<Grid.Row>
-						<Grid.Column width={12}>
+						<Grid.Column width={4}>
+							<DashboardSegment title="Profile Picture" loading={false}>
+								<ImageUploader onUploadImage={this.handleImageUpload.bind(this)} />
+							</DashboardSegment>
+						</Grid.Column>
+						<Grid.Column width={8}>
 							<DashboardSegment title="Personal Informations" loading={savingUser}>
 								<Form>
 									<Form.Field>
