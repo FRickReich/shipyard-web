@@ -26,7 +26,7 @@ class ImageUploader extends Component {
 		});
 
 		axios
-			.post(`http://localhost:3000/image/upload`, imageFormObj)
+			.post(`/image/upload`, imageFormObj)
 			.then((data) => {
 				if (data.data.success) {
 					this.props.onUploadImage(data.data.filePath);
