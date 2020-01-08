@@ -14,6 +14,7 @@ import {
 	Image,
 	TextArea,
 	Form,
+	Flag,
 	Input,
 	Segment,
 	Dimmer,
@@ -124,7 +125,9 @@ class Profile extends Component {
 										</Table.Row>
 										<Table.Row>
 											<Table.Cell>Country</Table.Cell>
-											<Table.Cell>{country}</Table.Cell>
+											<Table.Cell>
+												<Flag name={country.toLowerCase()} />
+											</Table.Cell>
 										</Table.Row>
 										<Table.Row>
 											<Table.Cell>Company</Table.Cell>

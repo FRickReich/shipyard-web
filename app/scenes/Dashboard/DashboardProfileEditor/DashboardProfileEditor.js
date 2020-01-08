@@ -16,6 +16,7 @@ import {
 	Loader,
 	Segment,
 	Button,
+	Select,
 	Form,
 	Message
 } from 'semantic-ui-react';
@@ -53,7 +54,11 @@ class DashboardProfile extends Component {
 	getCountries() {
 		fetch('https://restcountries.eu/rest/v2/all').then((res) => res.json()).then((json) => {
 			if (json) {
-				this.setState({ countries: json });
+				const countryEntries = json.map((country, i) => {
+					return { key: i, text: country.name, value: country.alpha2Code };
+				});
+
+				this.setState({ countries: countryEntries });
 			}
 		});
 	}
@@ -74,8 +79,8 @@ class DashboardProfile extends Component {
 		this.setState({ company: event.target.value });
 	}
 
-	onCountryChange(event) {
-		this.setState({ country: event.target.value });
+	onCountryChange(event, { name, value }) {
+		this.setState({ country: value });
 	}
 
 	onWebsiteChange(event) {
@@ -216,17 +221,12 @@ class DashboardProfile extends Component {
 									</Form.Group>
 									<Form.Field>
 										<label>Country</label>
-										<Input
-											list="countries"
-											placeholder="Choose Country"
+										<Select
+											placeholder="Select your country"
+											options={countries}
 											value={country}
 											onChange={this.onCountryChange.bind(this)}
 										/>
-										<datalist id="countries">
-											{countries.map((country, i) => {
-												return <option key={i} value={country.name} />;
-											})}
-										</datalist>
 									</Form.Field>
 									<Form.Field>
 										<label>Company</label>
