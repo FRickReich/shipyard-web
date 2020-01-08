@@ -18,6 +18,8 @@ class ImageUploader extends Component {
 	onImageChange(e) {
 		let imageFormObj = new FormData();
 
+		console.log('hi');
+
 		imageFormObj.append('imageName', 'multer-image-' + Date.now());
 		imageFormObj.append('imageData', event.target.files[0]);
 

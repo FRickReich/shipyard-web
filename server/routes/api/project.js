@@ -1,20 +1,42 @@
 'use strict';
 
 const Project = require('../../models/Project');
+const UserSession = require('../../models/UserSession');
+const User = require('../../models/User');
 
 module.exports = (app) => {
+	const getUsername = async (userId) => {
+		await User.findById(userId, (err, user) => {
+			return user.username;
+		});
+	};
+
 	// Get all projects connected to user
 	app.get(`/api/:userId/projects/`, (req, res, next) => {
-		Project.find({
-			team: {
-				$in: [
-					req.params.userId
-				]
+		Project.find(
+			{
+				team: {
+					$in: [
+						req.params.userId
+					]
+				}
+			},
+			(err, projects) => {
+				if (err) {
+					console.log(err);
+
+					return res.send({
+						success: false,
+						message: 'Error: Could not find projects'
+					});
+				}
+
+				return res.send({
+					success: true,
+					data: projects
+				});
 			}
-		})
-			.exec()
-			.then((message) => res.json(message))
-			.catch((err) => next(err));
+		);
 	});
 
 	// Get single project connected to user
@@ -51,26 +73,31 @@ module.exports = (app) => {
 	// Create a new project
 	app.post(`/api/projects`, (req, res, next) => {
 		const { query } = req;
+		const { body } = req;
 
-		const project = new Project();
+		UserSession.findById(query.id, (err, data) => {
+			const project = new Project();
+			project.title = body.title;
+			project.description = body.description;
+			project.image = body.image;
+			project.createdby = data.userId;
 
-		project.title = query.title;
-		project.createdby = query.userId;
-		project.team.push(query.userId);
+			project.team.push(data.userId);
 
-		project.save((err) => {
-			if (err) {
-				console.log(err);
+			project.save((err) => {
+				if (err) {
+					console.log(err);
+
+					return res.send({
+						success: false,
+						message: 'Error: Could not create project'
+					});
+				}
 
 				return res.send({
-					success: false,
-					message: 'Error: Could not create project'
+					success: true,
+					message: project
 				});
-			}
-
-			return res.send({
-				success: true,
-				message: project
 			});
 		});
 	});

@@ -10,12 +10,14 @@ import {
 	Header,
 	Message,
 	Button,
+	Card,
 	Grid,
 	Image,
 	TextArea,
 	Form,
 	Flag,
 	Input,
+	Icon,
 	Segment,
 	Dimmer,
 	Table,
@@ -40,7 +42,8 @@ class Profile extends Component {
 			image: '',
 			company: '',
 			user: '',
-			website: ''
+			website: '',
+			projects: []
 		};
 	}
 
@@ -72,8 +75,9 @@ class Profile extends Component {
 					country: json.data.country,
 					image: json.data.image,
 					company: json.data.company,
-					user: json.data.image,
-					website: json.data.website
+					user: json.data.id,
+					website: json.data.website,
+					projects: json.data.projects
 				});
 			}
 		});
@@ -90,8 +94,11 @@ class Profile extends Component {
 			image,
 			company,
 			user,
-			website
+			website,
+			projects
 		} = this.state;
+
+		console.log(projects);
 
 		return (
 			<ProfileLayout loggedIn={loggedIn}>
@@ -105,7 +112,7 @@ class Profile extends Component {
 				<Grid columns={2}>
 					<Grid.Row>
 						<Grid.Column width={4}>
-							<DashboardSegment title="Profile Picture" loading={false}>
+							<DashboardSegment title="Profile Picture" loading={isLoading}>
 								<Image src={image} size="medium" rounded />
 							</DashboardSegment>
 						</Grid.Column>
@@ -147,7 +154,32 @@ class Profile extends Component {
 						</Grid.Column>
 
 						<Grid.Column width={4}>
-							<DashboardSegment title="Projects" loading={false} />
+							<DashboardSegment title="Projects" loading={isLoading}>
+								<Card.Group>
+									{projects &&
+										projects.map((project, i) => {
+											return (
+												<Card key={i}>
+													{project.image && <Image src={project.image} wrapped ui={false} />}
+
+													<Card.Content>
+														<Card.Header>{project.title}</Card.Header>
+														<Card.Meta>
+															<span className="date">by {project.createdby}</span>
+														</Card.Meta>
+														<Card.Description>{project.description}</Card.Description>
+													</Card.Content>
+													{/* <Card.Content extra>
+														<a>
+															<Icon name="user" />
+															text
+														</a>
+													</Card.Content> */}
+												</Card>
+											);
+										})}
+								</Card.Group>
+							</DashboardSegment>
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>
@@ -157,3 +189,9 @@ class Profile extends Component {
 }
 
 export default Profile;
+
+/*
+const countryEntries = json.map((country, i) => {
+					return { key: i, text: country.name, value: country.alpha2Code };
+				});
+*/

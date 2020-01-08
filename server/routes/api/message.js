@@ -13,8 +13,6 @@ module.exports = (app) => {
 	app.post('/api/:userId/message/new', (req, res, next) => {
 		const { body } = req;
 
-		console.log(body);
-
 		const message = new Message();
 
 		message.text = body.text;
@@ -35,7 +33,5 @@ module.exports = (app) => {
 				message: 'Message created'
 			});
 		});
-
-		console.log(body);
 	});
 };

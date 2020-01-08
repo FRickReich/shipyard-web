@@ -58,8 +58,6 @@ class Login extends Component {
 		})
 			.then((res) => res.json())
 			.then((json) => {
-				console.log('json', json);
-
 				if (json.success) {
 					setInStorage('botany-bay', { token: json.token });
 
@@ -71,7 +69,8 @@ class Login extends Component {
 						password: '',
 						token: json.token
 					});
-				} else {
+				}
+				else {
 					this.setState({
 						signInError: json.message
 					});

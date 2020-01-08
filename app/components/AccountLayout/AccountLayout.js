@@ -66,8 +66,6 @@ class AccountLayout extends Component {
 
 			// Verify token
 			fetch('/api/account/?id=' + token).then((res) => res.json()).then((json) => {
-				console.log(json);
-
 				if (json.success) {
 					this.setState({
 						isLoading: false,

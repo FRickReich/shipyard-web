@@ -11,8 +11,10 @@ import {
 	Icon,
 	Divider,
 	Grid,
+	Card,
 	Container,
 	Dimmer,
+	Image,
 	Loader,
 	Segment,
 	Button,
@@ -34,6 +36,8 @@ class DashboardProfile extends Component {
 		this.state = {
 			isLoading: true,
 			username: '',
+			user: '',
+			projects: [],
 			firstname: '',
 			lastname: '',
 			company: '',
@@ -96,17 +100,22 @@ class DashboardProfile extends Component {
 			// Verify token
 			fetch('/api/account/?id=' + token).then((res) => res.json()).then((json) => {
 				if (json.success) {
-					this.setState({
-						isLoading: false,
-						username: json.data.username,
-						firstname: json.data.firstname,
-						lastname: json.data.lastname,
-						country: json.data.country,
-						image: json.data.image,
-						company: json.data.company,
-						user: json.data.image,
-						website: json.data.website
-					});
+					this.setState(
+						{
+							isLoading: false,
+							username: json.data.username,
+							firstname: json.data.firstname,
+							lastname: json.data.lastname,
+							country: json.data.country,
+							image: json.data.image,
+							company: json.data.company,
+							user: json.data.id,
+							website: json.data.website
+						},
+						() => {
+							this.getUserProjects(this.state.user);
+						}
+					);
 				}
 			});
 		}
@@ -115,6 +124,16 @@ class DashboardProfile extends Component {
 				isLoading: false
 			});
 		}
+	}
+
+	getUserProjects(id) {
+		fetch('/api/' + id + '/projects/').then((res) => res.json()).then((json) => {
+			if (json.success) {
+				this.setState({ projects: json.data }, () => {
+					console.log(this.state.projects);
+				});
+			}
+		});
 	}
 
 	updateUser() {
@@ -172,10 +191,9 @@ class DashboardProfile extends Component {
 			countries,
 			website,
 			savingUser,
-			showSaveMessage
+			showSaveMessage,
+			projects
 		} = this.state;
-
-		console.log(showSaveMessage);
 
 		return (
 			<AccountLayout
@@ -249,7 +267,22 @@ class DashboardProfile extends Component {
 						</Grid.Column>
 
 						<Grid.Column width={4}>
-							<DashboardSegment title="Projects" loading={false} />
+							<DashboardSegment title="Projects" loading={false}>
+								{projects && (
+									<Card.Group centered itemsPerRow={1}>
+										{projects.map((project, i) => {
+											return (
+												<Card key={i}>
+													{project.image && <Image src={project.image} wrapped ui={false} />}
+													<Card.Content>
+														<Card.Header>{project.title}</Card.Header>
+													</Card.Content>
+												</Card>
+											);
+										})}
+									</Card.Group>
+								)}
+							</DashboardSegment>
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>

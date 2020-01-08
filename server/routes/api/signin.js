@@ -4,6 +4,7 @@ const usernameGenerator = require('xm-username-generator');
 const SHA256 = require('crypto-js/sha256');
 
 const User = require('../../models/User');
+const Project = require('../../models/Project');
 const UserSession = require('../../models/UserSession');
 
 module.exports = (app) => {
@@ -230,29 +231,39 @@ module.exports = (app) => {
 				});
 			}
 
-			return res.send({
-				success: true,
-				data: {
-					email: user.email,
-					username: user.username,
-					firstname: user.firstname,
-					lastname: user.lastname,
-					country: user.country,
-					company: user.company,
-					website: user.website,
-					image: user.image,
-					signUpDate: user.signUpDate,
-					isVerified: user.isVerified,
-					id: user._id
+			Project.find(
+				{
+					team: {
+						$in: [
+							user._id
+						]
+					}
+				},
+				(err, projects) => {
+					return res.send({
+						success: true,
+						data: {
+							email: user.email,
+							username: user.username,
+							firstname: user.firstname,
+							lastname: user.lastname,
+							country: user.country,
+							company: user.company,
+							website: user.website,
+							image: user.image,
+							signUpDate: user.signUpDate,
+							isVerified: user.isVerified,
+							projects: projects,
+							id: user._id
+						}
+					});
 				}
-			});
+			);
 		});
 	});
 
 	app.get('/api/account/', (req, res, next) => {
 		const { query } = req;
-
-		const { body } = req;
 
 		UserSession.findById(query.id, (err, data) => {
 			User.findById(data.userId, (err, user) => {
@@ -281,6 +292,23 @@ module.exports = (app) => {
 						id: user._id
 					}
 				});
+			});
+		});
+	});
+
+	app.get('/api/user/:userId/username', (req, res, next) => {
+		User.findById(req.params.userId, (err, user) => {
+			if (err) {
+				console.log(err);
+
+				return res.send({
+					success: false
+				});
+			}
+
+			return res.send({
+				success: true,
+				data: user.username
 			});
 		});
 	});
@@ -332,3 +360,34 @@ module.exports = (app) => {
 		});
 	});
 };
+
+/*
+Project.find(
+					{
+						team: {
+							$in: [
+								data.userId
+							]
+						}
+					},
+					(err, projects) => {
+						return res.send({
+							success: true,
+							data: {
+								email: user.email,
+								username: user.username,
+								firstname: user.firstname,
+								lastname: user.lastname,
+								country: user.country,
+								company: user.company,
+								website: user.website,
+								image: user.image,
+								signUpDate: user.signUpDate,
+								isVerified: user.isVerified,
+								isDeleted: user.isDeleted,
+								projects: projects,
+								id: user._id
+							}
+						});
+					}
+				);*/

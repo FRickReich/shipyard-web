@@ -7,8 +7,6 @@ module.exports = (app) => {
 	app.post(`/api/:userId/translations/collections`, (req, res, next) => {
 		const { query } = req;
 
-		console.log(query);
-
 		const collection = new TranslationCollection({ name: query.name });
 
 		collection.save((err, col) => {

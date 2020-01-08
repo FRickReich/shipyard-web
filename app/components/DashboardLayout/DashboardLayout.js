@@ -25,7 +25,8 @@ class DashboardLayout extends Component {
 		const obj = getFromStorage('botany-bay');
 
 		if (obj && obj.token !== '') {
-		} else {
+		}
+		else {
 			return this.props.history.push('/dashboard/login');
 		}
 
@@ -41,14 +42,16 @@ class DashboardLayout extends Component {
 						token,
 						isLoading: false
 					});
-				} else {
+				}
+				else {
 					this.setState({
 						isLoading: false,
 						userData: []
 					});
 				}
 			});
-		} else {
+		}
+		else {
 			this.setState({
 				isLoading: false
 			});
@@ -63,8 +66,6 @@ class DashboardLayout extends Component {
 
 			// Verify token
 			fetch('/api/account/?id=' + token).then((res) => res.json()).then((json) => {
-				console.log(json);
-
 				if (json.success) {
 					this.setState({
 						isLoading: false,
@@ -72,7 +73,8 @@ class DashboardLayout extends Component {
 					});
 				}
 			});
-		} else {
+		}
+		else {
 			this.setState({
 				isLoading: false
 			});

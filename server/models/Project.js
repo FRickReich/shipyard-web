@@ -8,6 +8,11 @@ const ProjectSchema = new mongoose.Schema({
 		unique: true,
 		default: 'Default Project'
 	},
+
+	image: {
+		type: String,
+		default: ''
+	},
 	isActive: {
 		type: Boolean,
 		default: false

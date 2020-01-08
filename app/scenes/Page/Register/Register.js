@@ -21,10 +21,8 @@ class Register extends Component {
 	sendVerificationEmail(email) {
 		fetch(`/api/${email}/mail`).then((res) => res.json()).then((json) => {
 			if (json.success) {
-				console.log(json);
 			}
 			else {
-				console.log(json);
 			}
 		});
 	}
@@ -69,8 +67,6 @@ class Register extends Component {
 			})
 				.then((res) => res.json())
 				.then((json) => {
-					console.log('json', json);
-
 					if (json.success) {
 						this.sendVerificationEmail(email);
 
@@ -97,8 +93,6 @@ class Register extends Component {
 
 	render() {
 		const { email, password, passwordValidation, registrationSuccess, signUpError } = this.state;
-
-		console.log(registrationSuccess);
 
 		return (
 			<Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
