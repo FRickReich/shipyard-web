@@ -94,6 +94,13 @@ class Profile extends Component {
 
 		return (
 			<ProfileLayout loggedIn={loggedIn}>
+				<Header as="h2">
+					<Image src={image} avatar />
+					<Header.Content>
+						{username}
+						<Header.Subheader>Public Profile</Header.Subheader>
+					</Header.Content>
+				</Header>
 				<Grid columns={2}>
 					<Grid.Row>
 						<Grid.Column width={4}>
