@@ -6,6 +6,7 @@ const SHA256 = require('crypto-js/sha256');
 const User = require('../../models/User');
 const Project = require('../../models/Project');
 const UserSession = require('../../models/UserSession');
+const Log = require('../../models/Log');
 
 module.exports = (app) => {
 	app.post('/api/account/signup', (req, res, next) => {
@@ -57,6 +58,7 @@ module.exports = (app) => {
 				newUser.verificationToken = SHA256(email).toString();
 
 				newUser.save((err, user) => {
+					new Log({ action: 'User Signed up', user: user._id }).save();
 					if (err) {
 						return res.send({
 							success: false,
@@ -129,6 +131,8 @@ module.exports = (app) => {
 				userSession.userId = user._id;
 
 				userSession.save((err, doc) => {
+					new Log({ action: 'User signed in', user: user._id }).save();
+
 					if (err) {
 						console.log(err);
 						return res.send({
@@ -240,6 +244,14 @@ module.exports = (app) => {
 					}
 				},
 				(err, projects) => {
+					if (err) {
+						console.log(err);
+
+						return res.send({
+							success: false
+						});
+					}
+
 					return res.send({
 						success: true,
 						data: {
@@ -337,7 +349,9 @@ module.exports = (app) => {
 
 				user
 					.save()
-					.then(() =>
+					.then(() => {
+						new Log({ action: 'Changes in user profile', user: user._id }).save();
+
 						res.json({
 							success: true,
 							data: {
@@ -353,41 +367,10 @@ module.exports = (app) => {
 								isVerified: user.isVerified,
 								isDeleted: user.isDeleted
 							}
-						})
-					)
+						});
+					})
 					.catch((err) => next(err));
 			});
 		});
 	});
 };
-
-/*
-Project.find(
-					{
-						team: {
-							$in: [
-								data.userId
-							]
-						}
-					},
-					(err, projects) => {
-						return res.send({
-							success: true,
-							data: {
-								email: user.email,
-								username: user.username,
-								firstname: user.firstname,
-								lastname: user.lastname,
-								country: user.country,
-								company: user.company,
-								website: user.website,
-								image: user.image,
-								signUpDate: user.signUpDate,
-								isVerified: user.isVerified,
-								isDeleted: user.isDeleted,
-								projects: projects,
-								id: user._id
-							}
-						});
-					}
-				);*/

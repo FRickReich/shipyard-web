@@ -35,13 +35,14 @@ class DashboardOverview extends Component {
 			userData: [],
 			messages: [],
 			projects: [],
+			logs: [],
 			statisticsLoading: true
 		};
 	}
 
 	componentWillMount() {
 		this.getUserStatistics();
-		this.getUserProjects();
+		this.getUserLog();
 	}
 
 	getUserProjects(id) {
@@ -68,6 +69,7 @@ class DashboardOverview extends Component {
 						},
 						() => {
 							this.getUserProjects(this.state.userData.id);
+							this.getUserLog(this.state.userData.id);
 						}
 					);
 				}
@@ -80,8 +82,16 @@ class DashboardOverview extends Component {
 		}
 	}
 
+	getUserLog(id) {
+		fetch('/api/' + id + '/log/').then((res) => res.json()).then((json) => {
+			if (json.success) {
+				this.setState({ logs: json.data });
+			}
+		});
+	}
+
 	render() {
-		const { userData, statisticsLoading, projects } = this.state;
+		const { userData, statisticsLoading, projects, logs } = this.state;
 
 		let registrationDate = moment(userData.signUpDate).fromNow(true);
 
@@ -161,10 +171,15 @@ class DashboardOverview extends Component {
 											<Table.Cell>Time</Table.Cell>
 											<Table.Cell>Message</Table.Cell>
 										</Table.Row>
-										<Table.Row>
-											<Table.Cell>Name</Table.Cell>
-											<Table.Cell>a</Table.Cell>
-										</Table.Row>
+										{logs &&
+											logs.map((log, i) => {
+												return (
+													<Table.Row key={i}>
+														<Table.Cell>{moment(log.created).fromNow(true)}</Table.Cell>
+														<Table.Cell>{log.action}</Table.Cell>
+													</Table.Row>
+												);
+											})}
 									</Table.Body>
 								</Table>
 							</DashboardSegment>
