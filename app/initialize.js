@@ -8,11 +8,12 @@ import Home from './scenes/Page/Home/Home';
 import Login from './scenes/Page/Login/Login';
 import NotFound from './scenes/Page/NotFound/NotFound';
 import Register from './scenes/Page/Register/Register';
+import Profile from './scenes/Page/Profile/Profile';
 
 import DashboardOverview from './scenes/Dashboard/DashboardOverview/DashboardOverview';
 import DashboardSettings from './scenes/Dashboard/DashboardSettings/DashboardSettings';
 import DashboardProjectCreate from './scenes/Dashboard/DashboardProjectCreate/DashboardProjectCreate';
-import DashboardProfile from './scenes/Dashboard/DashboardProfile/DashboardProfile';
+import DashboardProfileEditor from './scenes/Dashboard/DashboardProfileEditor/DashboardProfileEditor';
 
 ReactDOM.render(
 	<Router>
@@ -22,8 +23,9 @@ ReactDOM.render(
 				<Route exact path="/dashboard/login" component={Login} />
 				<Route exact path="/dashboard" component={DashboardOverview} />
 				<Route exact path="/dashboard/settings" component={DashboardSettings} />
-				<Route exact path="/dashboard/profile" component={DashboardProfile} />
+				<Route exact path="/dashboard/profile" component={DashboardProfileEditor} />
 				<Route exact path="/dashboard/projects/create" component={DashboardProjectCreate} />
+				<Route exact path="/user/:userId" component={Profile} />
 				<Route path="/register" component={Register} />
 				<Route component={NotFound} />
 			</Switch>

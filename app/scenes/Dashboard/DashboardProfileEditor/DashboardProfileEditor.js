@@ -1,7 +1,8 @@
 'use strict';
 
+import { withRouter, NavLink } from 'react-router-dom';
+
 import React, { Component } from 'react';
-import _ from 'lodash';
 import 'whatwg-fetch';
 
 import {
@@ -19,11 +20,11 @@ import {
 	Message
 } from 'semantic-ui-react';
 
-import AccountLayout from './../../../components/AccountLayout/AccountLayout';
+import AccountLayout from '../../../components/AccountLayout/AccountLayout';
 import DashboardSegment from '../../../components/DashboardSegment/DashboardSegment';
 import ImageUploader from '../../../components/ImageUploader/ImageUploader';
 
-import { getFromStorage } from './../../../utils/storage';
+import { getFromStorage } from '../../../utils/storage';
 
 class DashboardProfile extends Component {
 	constructor(props) {
@@ -187,11 +188,12 @@ class DashboardProfile extends Component {
 							</DashboardSegment>
 						</Grid.Column>
 						<Grid.Column width={8}>
-							<DashboardSegment title="Personal Informations" loading={savingUser}>
+							<DashboardSegment title="User Informations" loading={savingUser}>
 								<Form>
 									<Form.Field>
 										<label>Username</label>
 										<Input
+											label="http://botany-bay.com:8080/user/"
 											placeholder="Username"
 											value={username}
 											onChange={this.onUsernameChange.bind(this)}
@@ -252,9 +254,15 @@ class DashboardProfile extends Component {
 					</Grid.Row>
 				</Grid>
 				<Divider horizontal />
-				<Button floated="right" positive loading={savingUser} onClick={this.updateUser.bind(this)}>
-					Save
-				</Button>
+
+				<Button.Group floated="right">
+					<Button as={NavLink} exact to={`/user/${username}`}>
+						Visit Profile
+					</Button>
+					<Button positive loading={savingUser} onClick={this.updateUser.bind(this)}>
+						Save
+					</Button>
+				</Button.Group>
 			</AccountLayout>
 		);
 	}

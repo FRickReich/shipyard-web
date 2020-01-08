@@ -220,6 +220,35 @@ module.exports = (app) => {
 		);
 	});
 
+	app.get('/api/user/:userId', (req, res, next) => {
+		User.findOne({ username: req.params.userId }, (err, user) => {
+			if (err) {
+				console.log(err);
+
+				return res.send({
+					success: false
+				});
+			}
+
+			return res.send({
+				success: true,
+				data: {
+					email: user.email,
+					username: user.username,
+					firstname: user.firstname,
+					lastname: user.lastname,
+					country: user.country,
+					company: user.company,
+					website: user.website,
+					image: user.image,
+					signUpDate: user.signUpDate,
+					isVerified: user.isVerified,
+					id: user._id
+				}
+			});
+		});
+	});
+
 	app.get('/api/account/', (req, res, next) => {
 		const { query } = req;
 
