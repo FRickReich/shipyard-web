@@ -46,6 +46,8 @@ class Profile extends Component {
 	componentDidMount() {
 		const obj = getFromStorage('botany-bay');
 
+		this.getUserInfo();
+
 		if (obj && obj.token !== '') {
 			this.setState({
 				loggedIn: true
@@ -54,32 +56,6 @@ class Profile extends Component {
 		else {
 			this.setState({
 				loggedIn: false
-			});
-		}
-
-		if (obj && obj.token) {
-			const { token } = obj;
-
-			// Verify token
-			fetch('/api/account/verify?token=' + token).then((res) => res.json()).then((json) => {
-				if (json.success) {
-					this.getUserInfo();
-
-					this.setState({
-						token,
-						isLoading: false
-					});
-				}
-				else {
-					this.setState({
-						isLoading: false
-					});
-				}
-			});
-		}
-		else {
-			this.setState({
-				isLoading: false
 			});
 		}
 	}
@@ -149,7 +125,11 @@ class Profile extends Component {
 										</Table.Row>
 										<Table.Row>
 											<Table.Cell>Website</Table.Cell>
-											<Table.Cell>{website}</Table.Cell>
+											<Table.Cell>
+												<a href={website} target="blank">
+													{website}
+												</a>
+											</Table.Cell>
 										</Table.Row>
 									</Table.Body>
 								</Table>
