@@ -9,6 +9,7 @@ import Login from './scenes/Page/Login/Login';
 import NotFound from './scenes/Page/NotFound/NotFound';
 import Register from './scenes/Page/Register/Register';
 import Profile from './scenes/Page/Profile/Profile';
+import Test from './scenes/Page/Test/Test';
 
 import DashboardOverview from './scenes/Dashboard/DashboardOverview/DashboardOverview';
 import DashboardSettings from './scenes/Dashboard/DashboardSettings/DashboardSettings';
@@ -21,6 +22,7 @@ ReactDOM.render(
 			<Switch>
 				<Route exact path="/" component={Home} />
 				<Route exact path="/dashboard/login" component={Login} />
+				<Route exact path="/test" component={Test} />
 				<Route exact path="/dashboard" component={DashboardOverview} />
 				<Route exact path="/dashboard/settings" component={DashboardSettings} />
 				<Route exact path="/dashboard/profile" component={DashboardProfileEditor} />
