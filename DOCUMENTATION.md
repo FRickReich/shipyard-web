@@ -7,6 +7,13 @@
 - Add translation strings to these collections
 - Add a message of the day and apply a calendar to it
 
+## Workflows
+
+### Test
+
+- create a test on the webapp or api
+- read test through unity plugin-asset
+
 ## UI
 
 ### Structure
