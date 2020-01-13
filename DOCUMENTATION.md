@@ -14,6 +14,18 @@
 - create a test on the webapp or api
 - read test through unity plugin-asset
 
+public Shipyard shipyard = new Shipyard();
+shipyard.serve("test");
+shipyard.testMessage();
+shipyard.testConnection();
+
+shipyard.serve.Character.Find("rick").name;
+
+### Message Of The Day
+
+- Create a test on the webapp or api
+- read test through unity plugin-asset
+
 ## UI
 
 ### Structure
