@@ -1,5 +1,5 @@
 # shipyard
-A Content Serving API and Web-Application for Unity
+A Content Serving API and Web-Application in connection with Unity
 
 Concept:
 - Create Daily Messages, Update Notifications, create and edit items, inventory items.
