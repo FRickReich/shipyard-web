@@ -1,12 +1,18 @@
 # shipyard
-A Content Serving API and Web-Application in connection with Unity
+A Content Management Web-Application, with an api to serve its content to Unity
 
-Concept:
-- Create Daily Messages, Update Notifications, create and edit items, inventory items.
-- create apps/games for authentication - each gets a unique token.
-- api goes directly to unity plugin.
+## Concept
 
-Technology:
+A Creator (User) can create a project and add the following types of content to it:
+- Message of the Day
+- Notification
+- Asset Items
+- Characters
+- Translations
+
+Each Project gets a unique token to be used for game-connection to the API, made out of a token and a secret that is encrypted and decrypted on application side, to be checked, and on successful connection, to be served the unity plugin.
+
+## Technology
 - Hosted on DigitalOcean.
 - MERN stack.
 - TravisCI for building.
