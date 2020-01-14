@@ -135,3 +135,7 @@ Database model for translation items, subdocument of TranslationCollection
 | ---- | ------ | ------- | ----------- |
 | name | String |         |             |
 | text | Object |         |             |
+
+### Notes
+
+dashboard design: https://dribbble.com/shots/1315388-Dashboard-Web-App-UI-Job-Summary?list=show&tag=analytics ?
