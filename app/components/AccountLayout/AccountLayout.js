@@ -109,7 +109,7 @@ class AccountLayout extends Component {
                 <DashboardHeader userData={userData} />
                 <Grid columns={2} padded>
                     <DashboardSidebar />
-                    <Grid.Column width={14} floated="right">
+                    <Grid.Column width={13} floated="right">
                         <Grid padded>
                             <Grid.Row>
                                 <Header

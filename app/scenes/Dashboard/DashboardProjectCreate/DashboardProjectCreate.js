@@ -20,6 +20,7 @@ import {
 
 import AccountLayout from "./../../../components/AccountLayout/AccountLayout";
 import ImageUploader from "./../../../components/ImageUploader/ImageUploader";
+import DashboardSegment from "../../../components/DashboardSegment/DashboardSegment";
 
 import { getFromStorage } from "../../../utils/storage";
 
@@ -104,10 +105,81 @@ class DashboardProjectCreate extends Component {
 
         return (
             <AccountLayout title="" subtitle="">
-                <Grid columns="equal">
-                    <Grid.Row stretched>
+                <Grid>
+                    <Grid.Row>
                         <Grid.Column>
-                            <Segment>test</Segment>
+                            <Divider horizontal>
+                                <div></div>
+                            </Divider>
+
+                            <Grid
+                                textAlign="center"
+                                style={{ height: "70vh" }}
+                                verticalAlign="middle"
+                            >
+                                <Grid.Column style={{ maxWidth: 450 }}>
+                                    <Header
+                                        as="h2"
+                                        color="black"
+                                        textAlign="center"
+                                    >
+                                        Create Project
+                                    </Header>
+                                    <Segment raised>
+                                        <ImageUploader
+                                            image={image}
+                                            onUploadImage={this.handleImageUpload.bind(
+                                                this
+                                            )}
+                                        />
+                                    </Segment>
+                                    <Form size="large">
+                                        <Segment raised>
+                                            <Form.Field>
+                                                <Form.Input
+                                                    label="Title"
+                                                    placeholder="Project title"
+                                                    value={title}
+                                                    error={titleError}
+                                                    onChange={this.onTitleChange.bind(
+                                                        this
+                                                    )}
+                                                />
+                                            </Form.Field>
+                                            <Form.Field
+                                                id="form-textarea-control-opinion"
+                                                onChange={this.onDescriptionChange.bind(
+                                                    this
+                                                )}
+                                                control={TextArea}
+                                                error={true}
+                                                label="Description"
+                                                placeholder="Description"
+                                                error={descriptionError}
+                                                value={description}
+                                            />
+                                            <Button
+                                                basic
+                                                floated="left"
+                                                onClick={this.goBack.bind(this)}
+                                            >
+                                                Cancel
+                                            </Button>
+                                            <Button
+                                                positive
+                                                floated="right"
+                                                onClick={this.onCreateButtonClicked.bind(
+                                                    this
+                                                )}
+                                            >
+                                                Create
+                                            </Button>
+                                            <Divider hidden />
+                                            <Divider hidden />
+                                        </Segment>
+                                    </Form>
+                                </Grid.Column>
+                            </Grid>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -117,49 +189,3 @@ class DashboardProjectCreate extends Component {
 }
 
 export default DashboardProjectCreate;
-
-/*
-<AccountLayout title="" subtitle="">
-				<Grid textAlign="center" style={{ height: '70vh' }} verticalAlign="middle">
-					<Grid.Column style={{ maxWidth: 450 }}>
-						<Header as="h2" color="black" textAlign="center">
-							Create Project
-						</Header>
-						<Segment raised>
-							<ImageUploader image={image} onUploadImage={this.handleImageUpload.bind(this)} />
-						</Segment>
-						<Form size="large">
-							<Segment raised>
-								<Form.Field>
-									<Form.Input
-										label="Title"
-										placeholder="Project title"
-										value={title}
-										error={titleError}
-										onChange={this.onTitleChange.bind(this)}
-									/>
-								</Form.Field>
-								<Form.Field
-									id="form-textarea-control-opinion"
-									onChange={this.onDescriptionChange.bind(this)}
-									control={TextArea}
-									error={true}
-									label="Description"
-									placeholder="Description"
-									error={descriptionError}
-									value={description}
-								/>
-								<Button basic floated="left" onClick={this.goBack.bind(this)}>
-									Cancel
-								</Button>
-								<Button positive floated="right" onClick={this.onCreateButtonClicked.bind(this)}>
-									Create
-								</Button>
-								<Divider hidden />
-								<Divider hidden />
-							</Segment>
-						</Form>
-					</Grid.Column>
-				</Grid>
-			</AccountLayout>
-*/

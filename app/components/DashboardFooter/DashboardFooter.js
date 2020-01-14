@@ -3,7 +3,7 @@
 import { withRouter, NavLink } from "react-router-dom";
 import React, { Component } from "react";
 
-import { Container, Segment } from "semantic-ui-react";
+import { Container, Segment, Divider } from "semantic-ui-react";
 
 class DashboardFooter extends Component {
     constructor(props) {
@@ -15,6 +15,7 @@ class DashboardFooter extends Component {
     render() {
         return (
             <Container fluid textAlign="right">
+                <Divider></Divider>
                 <NavLink to="/">Home</NavLink> •{" "}
                 <NavLink to="/">Documentation</NavLink>
             </Container>

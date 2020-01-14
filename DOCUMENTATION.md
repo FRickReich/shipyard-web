@@ -2,17 +2,25 @@
 
 ## Use-Case
 
-- User registers at page and creates a project, gives it a name and an api-url, then he can create:
-- A set of translation-collections (a named array of translations, folder/directory, so to say).
-- Add translation strings to these collections
-- Add a message of the day and apply a calendar to it
+-   User registers at page and creates a project, gives it a name and an api-url, then he can create:
+-   A set of translation-collections (a named array of translations, folder/directory, so to say).
+-   Add translation strings to these collections
+-   Add a message of the day and apply a calendar to it
 
 ## Workflows
 
+-   Account
+    -   logs in
+    -   has to create at least one team (cypress.io style)
+        -   can manage team, give it a name, invite members
+    -   creates a project
+        -   sets up project and manages is
+        -   add items, characters, i.e.
+
 ### Test
 
-- create a test on the webapp or api
-- read test through unity plugin-asset
+-   create a test on the webapp or api
+-   read test through unity plugin-asset
 
 public Shipyard shipyard = new Shipyard();
 shipyard.serve("test");
@@ -23,42 +31,43 @@ shipyard.serve.Character.Find("rick").name;
 
 ### Message Of The Day
 
-- Create a test on the webapp or api
-- read test through unity plugin-asset
+-   Create a test on the webapp or api
+-   read test through unity plugin-asset
 
 ## UI
 
 ### Structure
 
-- Header
-  - Left
-    - Links
-      - Home (Dashboard Overview)
-  - Right
-    - Create Project / Object
-      - Search
-    - Links
-      - Messages
-      - User
-        - Links
-          - Settings
-          - Profile
-          - Logout
-- Content
-  - Left
-    - Team
-    - Project
-    - Account
-  - Right
-    - Dashboard Content
-  - Footer
-    - Links
-      - Home
-      - Documentation
+-   Header
+    -   Left
+        -   Links
+            -   Home (Dashboard Overview)
+    -   Right
+        -   Create Project / Object
+            -   Search
+        -   Links
+            -   Messages
+            -   User
+                -   Links
+                    -   Settings
+                    -   Profile
+                    -   Logout
+-   Content
+    -   Left
+        -   Team
+        -   Project
+        -   Account
+    -   Right
+        -   Dashboard Content
+    -   Footer
+        -   Links
+            -   Home
+            -   Documentation
 
 ### Page
 
 #### 404 Page
+
 Shown when a website is not found, wether on the website or the app, shows the Page menu and Contains a link back to the previous page.
 
 ### Dashboard
