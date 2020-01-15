@@ -9,6 +9,9 @@ import {
     Table,
     Segment,
     Header,
+    Icon,
+    Popup,
+    Button,
     Image,
     Label,
     Grid,
@@ -24,8 +27,6 @@ class Test extends Component {
         this.state = { activeItem: "home" };
     }
 
-    componentDidMount() {}
-
     handleItemClick(e, { name }) {
         this.setState({ activeItem: name });
     }
@@ -33,160 +34,91 @@ class Test extends Component {
     render() {
         const { activeItem } = this.state;
 
-        const columnItems = ["A", "B", "C", "D"];
-
         return (
-            <div>
-                <Menu inverted borderless fixed="top">
-                    <Menu.Item header as={NavLink} to="/test">
-                        [PROJECT NAME]
-                    </Menu.Item>
-                    <Menu.Menu position="right">
-                        <Menu.Item>
-                            <Input icon="search" placeholder="Search..." />
-                        </Menu.Item>
-                        <Dropdown item text="USERNAME">
-                            <Dropdown.Menu>
-                                <Dropdown.Item>Electronics</Dropdown.Item>
-                                <Dropdown.Item>Automotive</Dropdown.Item>
-                                <Dropdown.Item>Home</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Menu.Menu>
-                </Menu>
-                <Grid columns={2} padded>
+            <Container fluid>
+                <Grid>
+                    {/* Sidebar */}
                     <Grid.Column
-                        width={2}
-                        style={{ position: "fixed", height: "100vh" }}
-                        color="violet"
+                        width={3}
+                        className="page-sidebar"
+                        color="black"
                     >
-                        <Menu vertical borderless inverted fluid text>
-                            <Menu.Item
-                                name="Overview"
-                                active={activeItem === "editorials"}
-                                onClick={this.handleItemClick}
-                            />
-                            <Menu.Item
-                                name="Reports"
-                                active={activeItem === "editorials"}
-                                onClick={this.handleItemClick}
-                            />
-                            <Menu.Item
-                                name="Analytics"
-                                active={activeItem === "editorials"}
-                                onClick={this.handleItemClick}
-                            />
-                            <Menu.Item
-                                name="Export"
-                                active={activeItem === "editorials"}
-                                onClick={this.handleItemClick}
-                            />
-                        </Menu>
+                        {/* Account Header */}
+                        <Segment basic inverted>
+                            <Popup
+                                trigger={
+                                    <Header
+                                        as="h3"
+                                        inverted
+                                        style={{ cursor: "pointer" }}
+                                    >
+                                        <Image
+                                            circular
+                                            src="https://react.semantic-ui.com/images/avatar/large/patrick.png"
+                                        />
+                                        <Header.Content>
+                                            ExampleTeam
+                                            <Header.Subheader>
+                                                Max Mustermann
+                                            </Header.Subheader>
+                                        </Header.Content>
+                                    </Header>
+                                }
+                                flowing
+                                hoverable
+                            >
+                                {/* Account Menu */}
+                                <Menu vertical text>
+                                    <Menu.Item>
+                                        <Menu.Header>Products</Menu.Header>
+
+                                        <Menu.Menu>
+                                            <Menu.Item name="enterprise" />
+                                            <Menu.Item name="consumer" />
+                                        </Menu.Menu>
+                                    </Menu.Item>
+                                </Menu>
+                            </Popup>
+                        </Segment>
+
+                        {/* Sidebar Menu */}
+                        <Segment basic inverted>
+                            wewewew
+                        </Segment>
                     </Grid.Column>
-                    <Grid.Column width={14} floated="right">
-                        <Grid padded>
-                            <Grid.Row>
-                                <Header
-                                    size="huge"
-                                    dividing
-                                    style={{ width: "100%" }}
-                                >
-                                    Dashboard header
-                                </Header>
-                            </Grid.Row>
-                            <Grid.Row textAlign="center">
-                                {columnItems.map((item, i) => {
-                                    return (
-                                        <Grid.Column key={i} width={4}>
-                                            <Image
-                                                style={{
-                                                    marginTop: "14px",
-                                                    marginBottom: "14px"
-                                                }}
-                                                centered
-                                                size="small"
-                                                circular
-                                                src="https://semantic-ui-forest.com/rootstatic/templates/bootstrap/dashboard/static/images/wireframe/square-image.png"
-                                            />
-                                            <Label size="large" basic>
-                                                {item}
-                                            </Label>
-                                            <p>text</p>
-                                        </Grid.Column>
-                                    );
-                                })}
-                            </Grid.Row>
-                            <Divider hidden />
-                            <Grid.Row>
-                                <Header
-                                    size="huge"
-                                    dividing
-                                    style={{ width: "100%" }}
-                                >
-                                    Section header
-                                </Header>
-                            </Grid.Row>
-                            <Grid.Row>
-                                <Table
-                                    singleLine
-                                    striped
-                                    selectable
-                                    unstackable
-                                >
-                                    <Table.Header>
-                                        <Table.Row>
-                                            <Table.HeaderCell>
-                                                #
-                                            </Table.HeaderCell>
-                                            <Table.HeaderCell>
-                                                Header
-                                            </Table.HeaderCell>
-                                            <Table.HeaderCell>
-                                                Header
-                                            </Table.HeaderCell>
-                                            <Table.HeaderCell>
-                                                Header
-                                            </Table.HeaderCell>
-                                            <Table.HeaderCell>
-                                                Header
-                                            </Table.HeaderCell>
-                                        </Table.Row>
-                                    </Table.Header>
-                                    <Table.Body>
-                                        <Table.Row>
-                                            <Table.Cell>Cell</Table.Cell>
-                                            <Table.Cell>Cell</Table.Cell>
-                                            <Table.Cell>Cell</Table.Cell>
-                                            <Table.Cell>Cell</Table.Cell>
-                                            <Table.Cell>Cell</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>Cell</Table.Cell>
-                                            <Table.Cell>Cell</Table.Cell>
-                                            <Table.Cell>Cell</Table.Cell>
-                                            <Table.Cell>Cell</Table.Cell>
-                                            <Table.Cell>Cell</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell>Cell</Table.Cell>
-                                            <Table.Cell>Cell</Table.Cell>
-                                            <Table.Cell>Cell</Table.Cell>
-                                            <Table.Cell>Cell</Table.Cell>
-                                            <Table.Cell>Cell</Table.Cell>
-                                        </Table.Row>
-                                    </Table.Body>
-                                </Table>
-                            </Grid.Row>
-                            <Grid.Row>
-                                <Container fluid textAlign="right">
-                                    <NavLink to="/">Home</NavLink> •{" "}
-                                    <NavLink to="/">Documentation</NavLink>
-                                </Container>
-                            </Grid.Row>
-                        </Grid>
+
+                    {/* Content */}
+                    <Grid.Column width={13} className="page-content">
+                        {/* Current Page Header */}
+                        <Segment basic inverted color="blue">
+                            <Header as="h3" inverted>
+                                <Header.Content>
+                                    Account Settings
+                                    <Header.Subheader>
+                                        Manage your preferences
+                                    </Header.Subheader>
+                                </Header.Content>
+                            </Header>
+                        </Segment>
+
+                        {/* Current Page Content */}
+                        <Segment basic>
+                            <Grid columns={3} padded="horizontally">
+                                <Grid.Row>
+                                    <Grid.Column>A</Grid.Column>
+                                    <Grid.Column>B</Grid.Column>
+                                </Grid.Row>
+
+                                <Grid.Row>
+                                    <Grid.Column>1</Grid.Column>
+                                    <Grid.Column>2</Grid.Column>
+                                    <Grid.Column>3</Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                        </Segment>
                     </Grid.Column>
                 </Grid>
-            </div>
+            </Container>
         );
     }
 }
