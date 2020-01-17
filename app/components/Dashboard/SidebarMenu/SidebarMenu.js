@@ -19,16 +19,20 @@ import {
     Divider
 } from "semantic-ui-react";
 
-import Layout from "./../../../components/Layout/Layout";
-
-class Test extends Component {
+class SidebarMenu extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {};
     }
 
     render() {
-        return <Layout>test</Layout>;
+        return (
+            <Segment basic inverted>
+                wewewew
+            </Segment>
+        );
     }
 }
 
-export default Test;
+export default SidebarMenu;

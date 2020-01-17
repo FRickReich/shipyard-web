@@ -44,3 +44,17 @@ body,
 .page-content {
     padding-left: 0 !important;
 }
+
+.fix-sidebar {
+    position: fixed;
+}
+
+.fix-header {
+    position: fixed !important;
+    width: 100% !important;
+    z-index: 1000;
+}
+
+.fix-content {
+    padding-top: 80px !important;
+}

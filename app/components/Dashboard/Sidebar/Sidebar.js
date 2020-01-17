@@ -15,28 +15,32 @@ import {
     Image,
     Label,
     Grid,
+    Loader,
     Container,
     Divider
 } from "semantic-ui-react";
 
 import SidebarHeader from "./../SidebarHeader/SidebarHeader";
+import SidebarMenu from "./../SidebarMenu/SidebarMenu";
 
 class Sidebar extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = { isLoading: true };
     }
 
     render() {
+        const { userData, isLoading } = this.props;
+
         return (
             <Grid.Column width={4} className="page-sidebar" color="black">
-                {/* Account Header */}
-                <SidebarHeader />
-                {/* Sidebar Menu */}
-                <Segment basic inverted>
-                    wewewew
-                </Segment>
+                <SidebarHeader isLoading={isLoading} userData={userData} />
+                {isLoading ? (
+                    <Loader active={isLoading} />
+                ) : (
+                    <SidebarMenu userdata={userData} />
+                )}
             </Grid.Column>
         );
     }

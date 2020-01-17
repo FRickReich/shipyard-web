@@ -14,55 +14,69 @@ import {
     Button,
     Image,
     Label,
+    Modal,
+    Loader,
     Grid,
     Container,
     Divider
 } from "semantic-ui-react";
-import { NavLink } from "react-router-dom";
+
+import AccountMenu from "../AccountMenu/AccountMenu";
 
 class SidebarHeader extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = { logoutModalOpen: false };
     }
 
     render() {
+        const { userData, isLoading } = this.props;
         return (
             <Segment basic inverted>
-                <Popup
-                    trigger={
-                        <Header as="h3" inverted style={{ cursor: "pointer" }}>
-                            <Image
-                                circular
-                                src="https://react.semantic-ui.com/images/avatar/large/patrick.png"
-                            />
-                            <Header.Content>
-                                ExampleTeam
-                                <Header.Subheader>
-                                    Max Mustermann
-                                </Header.Subheader>
-                            </Header.Content>
-                        </Header>
-                    }
-                    flowing
-                    hoverable
-                >
-                    {/* Account Menu */}
-                    <Menu vertical text>
-                        <Menu.Item>
-                            <Menu.Header>Products</Menu.Header>
-
-                            <Menu.Menu>
-                                <Menu.Item name="enterprise" />
-                                <Menu.Item name="consumer" />
-                            </Menu.Menu>
-                        </Menu.Item>
-                    </Menu>
-                </Popup>
+                {isLoading ? (
+                    <Segment basic padded>
+                        <Loader active></Loader>
+                    </Segment>
+                ) : (
+                    <Popup
+                        trigger={
+                            <Header
+                                as="h3"
+                                inverted
+                                style={{ cursor: "pointer" }}
+                            >
+                                {userData.image ? (
+                                    <Image circular src={userData.image} />
+                                ) : (
+                                    <Icon
+                                        circular
+                                        inverted
+                                        color="blue"
+                                        name="user"
+                                    />
+                                )}
+                                <Header.Content>
+                                    ExampleTeam
+                                    <Header.Subheader>
+                                        {userData && userData.username}
+                                    </Header.Subheader>
+                                </Header.Content>
+                            </Header>
+                        }
+                        flowing
+                        hoverable
+                    >
+                        {/* Account Menu */}
+                        <AccountMenu />
+                    </Popup>
+                )}
             </Segment>
         );
     }
 }
 
 export default SidebarHeader;
+
+/*
+ */

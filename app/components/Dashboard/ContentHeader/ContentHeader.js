@@ -31,7 +31,7 @@ class ContentHeader extends Component {
         const { title, subtitle } = this.props;
 
         return (
-            <Segment basic inverted color="blue">
+            <Segment padded basic inverted color="blue" className="fix-header">
                 <Header as="h3" inverted>
                     <Header.Content>
                         {title || "title"}
