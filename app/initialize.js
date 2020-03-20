@@ -1,37 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import App from './App';
+import App from "./App";
 
-import Home from './scenes/Page/Home/Home';
-import Login from './scenes/Page/Login/Login';
-import NotFound from './scenes/Page/NotFound/NotFound';
-import Register from './scenes/Page/Register/Register';
-import Profile from './scenes/Page/Profile/Profile';
-import Test from './scenes/Page/Test/Test';
+import Test from "./scenes/Other/Test/Test";
 
-import DashboardOverview from './scenes/Dashboard/DashboardOverview/DashboardOverview';
-import DashboardSettings from './scenes/Dashboard/DashboardSettings/DashboardSettings';
-import DashboardProjectCreate from './scenes/Dashboard/DashboardProjectCreate/DashboardProjectCreate';
-import DashboardProfileEditor from './scenes/Dashboard/DashboardProfileEditor/DashboardProfileEditor';
+import Home from "./scenes/Page/Home/Home";
+import Login from "./scenes/Other/Login/Login";
+import Register from "./scenes/Other/Register/Register";
+import Overview from "./scenes/Dashboard/Overview/Overview";
+import NotFound from "./scenes/Other/NotFound/NotFound";
+import ProfileManager from "./scenes/Dashboard/ProfileManager/ProfileManager";
 
 ReactDOM.render(
-	<Router>
-		<App>
-			<Switch>
-				<Route exact path="/" component={Home} />
-				<Route exact path="/dashboard/login" component={Login} />
-				<Route exact path="/test" component={Test} />
-				<Route exact path="/dashboard" component={DashboardOverview} />
-				<Route exact path="/dashboard/settings" component={DashboardSettings} />
-				<Route exact path="/dashboard/profile" component={DashboardProfileEditor} />
-				<Route exact path="/dashboard/projects/create" component={DashboardProjectCreate} />
-				<Route exact path="/user/:userId" component={Profile} />
-				<Route path="/register" component={Register} />
-				<Route component={NotFound} />
-			</Switch>
-		</App>
-	</Router>,
-	document.querySelector('#root')
+    <Router>
+        <App>
+            <Switch>
+                <Route exact path="/test" component={Test} />
+
+                <Route exact path="/" component={Home} />
+                <Route exact path="/dashboard/login" component={Login} />
+                <Route
+                    exact
+                    path="/dashboard/profile/manage"
+                    component={ProfileManager}
+                />
+                <Route exact path="/dashboard" component={Overview} />
+                <Route exact path="/register" component={Register} />
+
+                <Route component={NotFound} />
+            </Switch>
+        </App>
+    </Router>,
+    document.querySelector("#root")
 );

@@ -2,7 +2,9 @@
 
 import React, { Component } from "react";
 
-import CookieConsentMessage from "./components/CookieConsentMessage/CookieConsentMessage";
+import CookieConsentMessage from "./components/Other/CookieConsentMessage/CookieConsentMessage";
+
+import Layout from "./components/Layout/Layout";
 
 class App extends Component {
     constructor(props) {
